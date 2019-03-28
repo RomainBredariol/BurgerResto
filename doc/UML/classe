@@ -1,0 +1,59 @@
+https://www.planttext.com/
+
+@startuml
+
+title Diagramme de classe
+
+abstract class Entitee {
+  -String nom
+  -int pv
+  -int or
+  +getPV() : int
+  +getOr() : int
+  +getNom() : String
+  +attaquer(Entitee entitee)
+  +subirDegats(int degats)
+}
+class Joueur {
+  -Arme arme
+  -Armure armure
+  -ArrayList<Objet> sac
+}
+class Monstre {
+  -Objet tresor
+}
+
+Entitee <|-down- Joueur : Hérite
+Entitee <|-down- Monstre : Hérite
+
+abstract class Objet {
+  -String nom
+  -int valeur
+  +getNom() : String
+  +getValeur() : int
+}
+
+class Armure {
+  -int defense
+  +getDefense() : int
+}
+class Arme {
+  -int degats
+  +getDegats() : int
+}
+
+Objet <|-down- Arme : Hérite
+Objet <|-down- Armure : Hérite
+
+class Carte {
+  -Salle[][] salles
+}
+class Salle {
+  -String description
+  +getDescription() : String
+
+}
+
+
+
+@enduml
