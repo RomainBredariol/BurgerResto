@@ -1,0 +1,7 @@
+https://yuml.me/diagram/usecase/draw
+
+
+[Joueur]-(Rejoindre une partie),
+[Joueur qui à rejoint une partie]-(Se déplacer),
+[Joueur qui à rejoint une partie]-(Combattre un monstre),
+[Joueur qui à rejoint une partie]-(Dépenser de l'or)
