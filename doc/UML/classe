@@ -13,11 +13,15 @@ abstract class Entitee {
   +getNom() : String
   +attaquer(Entitee entitee)
   +subirDegats(int degats)
+  +soigner()
 }
 class Joueur {
+  -Salle emplacement
   -Arme arme
   -Armure armure
   -ArrayList<Objet> sac
+  +deplacer(Salle salle)
+  +getSalle() : Salle
 }
 class Monstre {
   -Objet tresor
@@ -36,12 +40,15 @@ abstract class Objet {
 class Armure {
   -int defense
   +getDefense() : int
+  +subirDegats(int degats)
+  +reparer()
 }
 class Arme {
   -int degats
   +getDegats() : int
 }
-
+Joueur "0,n"--down-"1" Objet : transporte
+Monstre "1"--down-"1" Objet : garde
 Objet <|-down- Arme : Hérite
 Objet <|-down- Armure : Hérite
 
@@ -50,8 +57,21 @@ class Carte {
 }
 class Salle {
   -String description
+  -ArrayList<Monstre> : monstres
   +getDescription() : String
+  +getMonstres() : ArrayList<Monstre>
+}
 
+Carte "n" *-down- "1,n" Salle: Composition
+Salle"0,1"--left-"1" Joueur : contient
+Salle"0,n"--right-"1" Monstre : contient
+
+class Boutique {
+  -ArrayList<Objet> marchandise
+  +acheter(Objet objet)
+  +vendre(Objet objet)
+  +reparer(Armure armure)
+  +getMarchandise() : ArrayList<Objet>
 }
 
 
