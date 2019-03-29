@@ -6,7 +6,7 @@ public class Boutique {
 	
 	private List<Objet> marchandise;
 	
-	public Boutique(Liste<Objet> marchandise) {
+	public Boutique(List<Objet> marchandise) {
 		this.marchandise = this.marchandise;
 	}
 	

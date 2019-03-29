@@ -21,5 +21,9 @@ public class Porte {
 		this.salle2.reveler();
 	}
 	
+	public boolean estOuverte() {
+		return this.estOuverte;
+	}
+	
 	
 }
