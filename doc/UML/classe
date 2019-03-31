@@ -1,6 +1,5 @@
 https://www.planttext.com/
 
-
 @startuml
 
 title Diagramme de classe
@@ -32,6 +31,20 @@ class Monstre {
   -int force
   +getTresor() : Objet
 }
+
+Class Combat {
+  -int tour
+  -Joueur joueur
+  -ArrayList<Monstre> monstres
+  -boolean estTermine
+  +estTermine() : boolean
+  +continuer()
+  +fuir()
+  +getTour() : int
+}
+
+Joueur "1"--down-"1" Combat : participe
+Monstre "1"--down-"0,n" Combat : participe
 
 Entitee <|-down- Joueur : Hérite
 Entitee <|-down- Monstre : Hérite
