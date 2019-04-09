@@ -7,11 +7,14 @@ title Diagramme de classe
 abstract class Entitee {
   -String nom
   -int pv
+  -int pvMax
   -int or
+  -boolean estVivant
   +getPV() : int
   +getOr() : int
   +getNom() : String
-  +attaquer(Entitee entitee)
+  +estVivant() : boolean
+  +{abstract} attaquer(Entitee entitee)
   +subirDegats(int degats)
   +soigner()
 }
@@ -20,12 +23,28 @@ class Joueur {
   -Arme arme
   -Armure armure
   -ArrayList<Objet> sac
-  +deplacer(Salle salle)
+  +prendrePorte(Porte porte)
   +getSalle() : Salle
 }
 class Monstre {
   -Objet tresor
+  -int force
+  +getTresor() : Objet
 }
+
+Class Combat {
+  -int tour
+  -Joueur joueur
+  -ArrayList<Monstre> monstres
+  -boolean estTermine
+  +estTermine() : boolean
+  +continuer()
+  +fuir()
+  +getTour() : int
+}
+
+Joueur "1"--down-"1" Combat : participe
+Monstre "1"--down-"0,n" Combat : participe
 
 Entitee <|-down- Joueur : Hérite
 Entitee <|-down- Monstre : Hérite
@@ -39,9 +58,13 @@ abstract class Objet {
 
 class Armure {
   -int defense
+  -int defenseMax
+  -boolean estCassee
   +getDefense() : int
+  +getDefenseMax() : int
   +subirDegats(int degats)
   +reparer()
+  +estCassee() : boolean
 }
 class Arme {
   -int degats
@@ -58,9 +81,24 @@ class Carte {
 class Salle {
   -String description
   -ArrayList<Monstre> : monstres
+  -Porte[] : portes
+  -estVisible : boolean
   +getDescription() : String
   +getMonstres() : ArrayList<Monstre>
+  +getPortes() : Porte[]
+  +estVisible() : boolean
+  +reveler()
 }
+
+class Porte {
+  -boolean estOuverte
+  -Salle salle1
+  -Salle salle2
+  +ouvrir()
+  +estOuverte() : boolean
+}
+
+Salle "0,4" --down- "2" Porte: comporte
 
 Carte "n" *-down- "1,n" Salle: Composition
 Salle"0,1"--left-"1" Joueur : contient
