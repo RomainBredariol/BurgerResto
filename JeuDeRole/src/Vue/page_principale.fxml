@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.gluonhq.charm.glisten.control.Avatar?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -43,16 +41,16 @@
                <children>
                   <HBox>
                      <children>
-                        <Avatar>
+                        <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@icon/user.png" />
                            </image>
-                        </Avatar>
-                        <TextField promptText="Nom du joueur">
+                        </ImageView>
+                        <Label contentDisplay="CENTER" disable="true" ellipsisString="" prefHeight="33.0" prefWidth="199.0" text="Nom du Joueur" textAlignment="CENTER">
                            <HBox.margin>
                               <Insets left="20.0" />
                            </HBox.margin>
-                        </TextField>
+                        </Label>
                      </children>
                   </HBox>
                   <HBox layoutX="10.0" layoutY="10.0">
@@ -62,11 +60,11 @@
                               <Image url="@icon/sword.png" />
                            </image>
                         </ImageView>
-                        <TextField promptText="Nom de l'arme (ATK)">
+                        <Label contentDisplay="CENTER" disable="true" ellipsisString="" prefHeight="33.0" prefWidth="199.0" text="Nom de l'arme (ATK)" textAlignment="CENTER">
                            <HBox.margin>
                               <Insets left="20.0" />
                            </HBox.margin>
-                        </TextField>
+                        </Label>
                      </children>
                      <VBox.margin>
                         <Insets top="10.0" />
@@ -79,11 +77,11 @@
                               <Image url="@icon/shield.png" />
                            </image>
                         </ImageView>
-                        <TextField promptText="Nom du bouclier (DEF)">
+                        <Label contentDisplay="CENTER" disable="true" ellipsisString="" prefHeight="33.0" prefWidth="199.0" text="Nom du bouclier (DEF)" textAlignment="CENTER">
                            <HBox.margin>
                               <Insets left="20.0" />
                            </HBox.margin>
-                        </TextField>
+                        </Label>
                      </children>
                      <VBox.margin>
                         <Insets top="10.0" />
