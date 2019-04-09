@@ -1,25 +1,75 @@
 package MainApp;
 
-import javafx.application.Application;
-import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
+import Controleur.ControleurFX;
+import Controleur.ControleurPageConnexion;
+import Controleur.ControleurPagePrincipale;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class MainApp extends Application {
+	
+	private Stage primaryStage;
+	private Map<String, String> page = new HashMap<String, String>();
+	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			BorderPane root = new BorderPane();
-			Scene scene = new Scene(root,400,400);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(scene);
-			primaryStage.show();
-		} catch(Exception e) {
+			this.primaryStage = primaryStage;
+			this.primaryStage.setTitle("Super Tower Rise invasion");
+			
+			this.page.put("connexion", "/Controleur/connexion.fxml");
+			this.page.put("principale", "/Controleur/page_principale.fxml");
+			
+			showPage("connexion");	
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
+	// charge page connexion
+	public void showPage(String titre_page) {
+		try {
+			// cree loader qui va permettre de charger les pages
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(MainApp.class.getResource(this.page.get(titre_page)));
+			AnchorPane personOverview = (AnchorPane) loader.load();
+			ControleurFX controleur;
+			
+			switch(titre_page) {
+				case "connexion":
+					controleur = new ControleurPageConnexion();
+					break;
+				case "principale":
+					controleur = new ControleurPagePrincipale();
+					break;
+				default:
+					System.out.println("** ERREUR ** : Mauvaise Page");
+					break;	
+			}
+			
+			controleur = loader.getController();
+			
+			// on charge la mainApp depuis le controleur de la page demande
+			controleur.setMainApp(this);
+
+			Scene scene = new Scene(personOverview);
+			// on charge la scene dans le primaryStage
+			primaryStage.setScene(scene);
+			primaryStage.show();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public static void main(String[] args) {
 		launch(args);
 	}

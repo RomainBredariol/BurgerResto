@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="822.0" style="-fx-background-color: #E6E6E6;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="822.0" style="-fx-background-color: #E6E6E6;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controleur.ControleurPageConnexion">
    <children>
       <Text layoutX="291.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenue" textAlignment="CENTER" wrappingWidth="241.0">
          <font>
@@ -26,11 +26,20 @@
                   <Font name="Impact" size="20.0" />
                </font>
             </Label>
-            <HBox layoutX="660.0" layoutY="1.0" prefHeight="47.0" prefWidth="162.0">
+            <HBox layoutX="679.0" layoutY="1.0" prefHeight="47.0" prefWidth="144.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="52.0" prefWidth="47.0" text="_" />
-                  <Button mnemonicParsing="false" prefHeight="54.0" prefWidth="50.0" text="□" />
-                  <Button mnemonicParsing="false" prefHeight="53.0" prefWidth="46.0" text="X" />
+                  <Button mnemonicParsing="false" prefHeight="52.0" prefWidth="47.0" style="-fx-background-color: #0174DF;" text="_" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="21.0" />
+                     </font></Button>
+                  <Button mnemonicParsing="false" prefHeight="54.0" prefWidth="50.0" style="-fx-background-color: #0174DF;" text="□" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="21.0" />
+                     </font></Button>
+                  <Button mnemonicParsing="false" prefHeight="53.0" prefWidth="46.0" style="-fx-background-color: #0174DF;" text="X" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="21.0" />
+                     </font></Button>
                </children>
             </HBox>
          </children>
@@ -44,7 +53,7 @@
                         <Image url="@icon/user.png" />
                      </image>
                   </ImageView>
-                  <TextField prefHeight="52.0" prefWidth="224.0" promptText="Nom du joueur">
+                  <TextField fx:id="nomJoueur" prefHeight="52.0" prefWidth="224.0" promptText="Nom du joueur">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
@@ -53,8 +62,8 @@
             </HBox>
          </children>
       </Pane>
-      <Button layoutX="29.0" layoutY="561.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="89.0" text="About" />
-      <Button layoutX="719.0" layoutY="561.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="89.0" text="Commencer" />
+      <Button fx:id="about" layoutX="29.0" layoutY="561.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="89.0" style="-fx-background-color: #0174DF;" text="About" textFill="WHITE" />
+      <Button fx:id="commencer" cache="true" layoutX="687.0" layoutY="560.0" mnemonicParsing="false" onAction="#clicBoutonCommencer" prefHeight="36.0" prefWidth="110.0" style="-fx-background-color: #0174DF;" text="Commencer" textFill="WHITE" />
       <Text layoutX="58.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pour commencer, veuillez entrer le nom de votre joueur" textAlignment="CENTER" wrappingWidth="708.0">
          <font>
             <Font size="24.0" />
