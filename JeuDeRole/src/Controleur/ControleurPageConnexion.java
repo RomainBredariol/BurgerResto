@@ -15,8 +15,10 @@ public class ControleurPageConnexion extends ControleurFX{
 	
 	@FXML
 	public void clicBoutonCommencer() {
-		//if(!this.nomJoueur.getText().isEmpty()) {
+		if(!this.nomJoueur.getText().isEmpty()) {
 			this.mainApp.showPage("principale");
-		//}
+		}else {
+			this.mainApp.showPage("erreurSaisieNomJoueur");
+		}
 	}
 }

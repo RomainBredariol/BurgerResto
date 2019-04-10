@@ -6,6 +6,7 @@ import java.util.Map;
 
 import Controleur.ControleurFX;
 import Controleur.ControleurPageConnexion;
+import Controleur.ControleurPageErreurSaisieNomJoueur;
 import Controleur.ControleurPagePrincipale;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +27,7 @@ public class MainApp extends Application {
 			
 			this.page.put("connexion", "/Controleur/connexion.fxml");
 			this.page.put("principale", "/Controleur/page_principale.fxml");
+			this.page.put("erreurSaisieNomJoueur", "/Controleur/page_erreurSaisieNomJoueur.fxml");
 			
 			showPage("connexion");	
 
@@ -50,6 +52,11 @@ public class MainApp extends Application {
 				case "principale":
 					controleur = new ControleurPagePrincipale();
 					break;
+				case "erreurSaisieNomJoueur":
+					controleur = new ControleurPageErreurSaisieNomJoueur();
+					Stage fenetreErreur = new Stage();
+					fenetreErreur.initOwner(primaryStage);
+					controleur.setFenetre(fenetreErreur);
 				default:
 					System.out.println("** ERREUR ** : Mauvaise Page");
 					break;	
