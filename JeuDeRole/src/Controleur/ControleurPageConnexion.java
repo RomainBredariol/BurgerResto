@@ -18,7 +18,7 @@ public class ControleurPageConnexion extends ControleurFX{
 		if(!this.nomJoueur.getText().isEmpty()) {
 			this.mainApp.showPage("principale");
 		}else {
-			this.mainApp.showPage("erreurSaisieNomJoueur");
+			this.mainApp.showPagePopUp("erreurSaisieNomJoueur");
 		}
 	}
 }

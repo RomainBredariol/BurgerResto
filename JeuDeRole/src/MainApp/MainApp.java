@@ -36,7 +36,7 @@ public class MainApp extends Application {
 		}
 	}
 
-	// charge page connexion
+	// charge page primaire
 	public void showPage(String titre_page) {
 		try {
 			// cree loader qui va permettre de charger les pages
@@ -51,12 +51,7 @@ public class MainApp extends Application {
 					break;
 				case "principale":
 					controleur = new ControleurPagePrincipale();
-					break;
-				case "erreurSaisieNomJoueur":
-					controleur = new ControleurPageErreurSaisieNomJoueur();
-					Stage fenetreErreur = new Stage();
-					fenetreErreur.initOwner(primaryStage);
-					controleur.setFenetre(fenetreErreur);
+					break;	
 				default:
 					System.out.println("** ERREUR ** : Mauvaise Page");
 					break;	
@@ -76,6 +71,44 @@ public class MainApp extends Application {
 			e.printStackTrace();
 		}
 	}
+	
+	// charge page pop-up
+		public void showPagePopUp(String titre_page) {
+			try {
+				// cree loader qui va permettre de charger les pages
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(MainApp.class.getResource(this.page.get(titre_page)));
+				AnchorPane personOverview = (AnchorPane) loader.load();
+				ControleurFX controleur;
+				
+				Stage fenetrePopUp = new Stage();
+				fenetrePopUp.initOwner(primaryStage);
+				
+				switch(titre_page) {
+					case "erreurSaisieNomJoueur":
+						controleur = new ControleurPageErreurSaisieNomJoueur();
+						fenetrePopUp.setTitle("Erreur");
+						break;	
+					default:
+						System.out.println("** ERREUR ** : Mauvaise Page");
+						break;	
+				}
+				
+				controleur = loader.getController();
+				
+				// on charge la mainApp depuis le controleur de la page demande
+				controleur.setFenetre(fenetrePopUp);
+				controleur.setMainApp(this);
+				
+				Scene scene = new Scene(personOverview);
+				// on charge la scene dans le primaryStage
+				fenetrePopUp.setScene(scene);
+				fenetrePopUp.show();
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 
 	public static void main(String[] args) {
 		launch(args);
