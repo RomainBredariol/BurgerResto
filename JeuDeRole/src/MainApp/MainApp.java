@@ -8,6 +8,7 @@ import Controleur.ControleurFX;
 import Controleur.ControleurPageConnexion;
 import Controleur.ControleurPageErreurSaisieNomJoueur;
 import Controleur.ControleurPagePrincipale;
+import Model.Joueur;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -18,6 +19,7 @@ public class MainApp extends Application {
 	
 	private Stage primaryStage;
 	private Map<String, String> page = new HashMap<String, String>();
+	public Joueur joueurEnJeu;
 	
 	@Override
 	public void start(Stage primaryStage) {

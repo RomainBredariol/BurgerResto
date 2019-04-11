@@ -39,7 +39,7 @@
                               <Image url="@icon/user.png" />
                            </image>
                         </ImageView>
-                        <Label contentDisplay="CENTER" disable="true" ellipsisString="" prefHeight="33.0" prefWidth="199.0" text="Nom du Joueur" textAlignment="CENTER">
+                        <Label fx:id="nomJoueur" contentDisplay="CENTER" disable="true" ellipsisString="" prefHeight="33.0" prefWidth="199.0" text="Nom du Joueur" textAlignment="CENTER">
                            <HBox.margin>
                               <Insets left="20.0" />
                            </HBox.margin>
@@ -87,7 +87,7 @@
                               <Image url="@icon/heart.png" />
                            </image>
                         </ImageView>
-                        <ProgressBar prefHeight="27.0" prefWidth="200.0" progress="0.72">
+                        <ProgressBar fx:id="vie" prefHeight="27.0" prefWidth="200.0" progress="0.77">
                            <HBox.margin>
                               <Insets left="20.0" />
                            </HBox.margin>

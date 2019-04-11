@@ -4,7 +4,7 @@ public abstract class Entitee {
 	
 	private String nom;
 	private int pvMax;
-	private int pv;
+	private int pv; //pvMax = 1
 	private int or;
 	private boolean estVivant;
 	

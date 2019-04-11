@@ -12,7 +12,7 @@ public class Joueur extends Entitee {
 
 	// un nouveau joueur commence avec 20 PV, 100 d'or et un sac vide
  	public Joueur(String nom) {
-		super(nom, 20, 100);
+		super(nom, 1, 100);
 		this.sac = new ArrayList<Objet>();
 		// TODO arme et armure
 	}
