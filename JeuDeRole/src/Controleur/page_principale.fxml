@@ -21,7 +21,7 @@
    <children>
       <Pane prefHeight="49.0" prefWidth="822.0" style="-fx-background-color: #0174DF;">
          <children>
-            <Label layoutX="14.0" layoutY="12.0" prefHeight="26.0" prefWidth="245.0" text="Super Tower Rise Invasion" textFill="WHITE">
+            <Label fx:id="menu" layoutX="14.0" layoutY="12.0" onMouseClicked="#retourPageConnexion" prefHeight="26.0" prefWidth="245.0" text="Super Tower Rise Invasion" textFill="WHITE">
                <font>
                   <Font name="Ubuntu Light" size="20.0" />
                </font>
@@ -53,7 +53,7 @@
                               <Image url="@icon/sword.png" />
                            </image>
                         </ImageView>
-                        <Label contentDisplay="CENTER" disable="true" ellipsisString="" prefHeight="33.0" prefWidth="199.0" text="Nom de l'arme (ATK)" textAlignment="CENTER">
+                        <Label fx:id="nomArme" contentDisplay="CENTER" disable="true" ellipsisString="" prefHeight="33.0" prefWidth="199.0" text="Nom de l'arme (ATK)" textAlignment="CENTER">
                            <HBox.margin>
                               <Insets left="20.0" />
                            </HBox.margin>
@@ -70,7 +70,7 @@
                               <Image url="@icon/shield.png" />
                            </image>
                         </ImageView>
-                        <Label contentDisplay="CENTER" disable="true" ellipsisString="" prefHeight="33.0" prefWidth="199.0" text="Nom du bouclier (DEF)" textAlignment="CENTER">
+                        <Label fx:id="nomArmure" contentDisplay="CENTER" disable="true" ellipsisString="" prefHeight="33.0" prefWidth="199.0" text="Nom de la défense (DEF)" textAlignment="CENTER">
                            <HBox.margin>
                               <Insets left="20.0" />
                            </HBox.margin>

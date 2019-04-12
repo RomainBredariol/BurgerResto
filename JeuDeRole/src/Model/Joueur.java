@@ -17,6 +17,22 @@ public class Joueur extends Entitee {
 		// TODO arme et armure
 	}
 
+	public Armure getArmure() {
+		return armure;
+	}
+
+	public void setArmure(Armure armure) {
+		this.armure = armure;
+	}
+
+	public Arme getArme() {
+		return arme;
+	}
+
+	public void setArme(Arme arme) {
+		this.arme = arme;
+	}
+
 	@Override
 	public void attaquer(Entitee entitee) {
 		// TODO realiser une attaque ne fonctionde l'arme

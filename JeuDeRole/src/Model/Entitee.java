@@ -4,7 +4,7 @@ public abstract class Entitee {
 	
 	private String nom;
 	private int pvMax;
-	private int pv; //pvMax = 1
+	private int pv; //pvMax = 1 
 	private int or;
 	private boolean estVivant;
 	
@@ -42,7 +42,7 @@ public abstract class Entitee {
 	// diminue le nombre de points de vie de l'entitée en fonction des dégats qui lui sont infligés
 	// vérifie si l'entitée est toujours vivante aprés coup.
 	public void subirDegats(int degats) {
-		this.pv -= degats;
+		this.pv -= degats/100; // diviser par 100 car pvMax = 1
 		if (this.pv <= 0 )
 			this.estVivant = false;
 	}
