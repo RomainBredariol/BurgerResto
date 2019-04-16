@@ -17,7 +17,7 @@ public class Boutique {
 		// TODO : traitement
 	}
 	// permet de reparer une armure 
-	// TOD : prix , transfert d'argent ... 
+	// TODO : prix , transfert d'argent ... 
 	public void reparer(Armure armure) {
 		armure.reparer();
 	}

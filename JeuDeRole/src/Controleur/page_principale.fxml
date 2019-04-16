@@ -97,12 +97,32 @@
                         <Insets top="20.0" />
                      </VBox.margin>
                   </HBox>
+                  <HBox>
+                     <children>
+                        <ImageView fitHeight="27.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@icon/coins.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="190.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label fx:id="or" contentDisplay="CENTER" disable="true" ellipsisString="" prefHeight="33.0" prefWidth="48.0" text="0" textAlignment="CENTER">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </HBox>
                </children>
             </VBox>
          </children></Pane>
       <Pane layoutX="338.0" layoutY="76.0" prefHeight="277.0" prefWidth="466.0">
          <children>
-            <GridPane gridLinesVisible="true" prefHeight="277.0" prefWidth="466.0">
+            <GridPane fx:id="carte" alignment="CENTER" gridLinesVisible="true" prefHeight="277.0" prefWidth="466.0">
               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -141,7 +161,7 @@
             </ScrollPane>
          </children>
       </Pane>
-      <Pane layoutX="29.0" layoutY="339.0" prefHeight="172.0" prefWidth="280.0">
+      <Pane disable="true" layoutX="29.0" layoutY="339.0" prefHeight="172.0" prefWidth="280.0">
          <children>
             <VBox>
                <children>
@@ -153,7 +173,7 @@
                         <Insets />
                      </opaqueInsets>
                   </Pane>
-                  <ScrollPane prefHeight="172.0" prefWidth="280.0">
+                  <ScrollPane prefHeight="116.0" prefWidth="280.0">
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="467.0" prefWidth="260.0">
                            <children>
@@ -166,7 +186,11 @@
             </VBox>
          </children>
       </Pane>
-      <Button layoutX="29.0" layoutY="561.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="89.0" style="-fx-background-color: #0174DF;" text="Attaquer" textFill="WHITE" />
-      <Button layoutX="220.0" layoutY="561.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="89.0" style="-fx-background-color: #0174DF;" text="Fuir" textFill="WHITE" />
+      <Button layoutX="75.0" layoutY="570.0" mnemonicParsing="false" onAction="#clicBas" prefHeight="36.0" prefWidth="40.0" style="-fx-background-color: #0174DF;" text="↓" textFill="WHITE" />
+      <Button layoutX="75.0" layoutY="530.0" mnemonicParsing="false" onAction="#clicHaut" prefHeight="36.0" prefWidth="40.0" style="-fx-background-color: #0174DF;" text="↑" textFill="WHITE" />
+      <Button layoutX="120.0" layoutY="570.0" mnemonicParsing="false" onAction="#clicDroite" prefHeight="36.0" prefWidth="40.0" style="-fx-background-color: #0174DF;" text="→" textFill="WHITE" />
+      <Button layoutX="30.0" layoutY="570.0" mnemonicParsing="false" onAction="#clicGauche" prefHeight="36.0" prefWidth="40.0" style="-fx-background-color: #0174DF;" text="←" textFill="WHITE" />
+      <Button disable="true" layoutX="230.0" layoutY="530.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="80.0" style="-fx-background-color: #0174DF;" text="Attaquer" textFill="WHITE" />
+      <Button disable="true" layoutX="230.0" layoutY="570.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="80.0" style="-fx-background-color: #0174DF;" text="Acheter" textFill="WHITE" />
    </children>
 </AnchorPane>

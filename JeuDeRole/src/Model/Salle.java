@@ -21,7 +21,7 @@ public class Salle {
 	public String getDescription() {
 		return this.description;
 	}
-
+	
 	public List<Monstre> getMonstres() {
 		return monstres;
 	}

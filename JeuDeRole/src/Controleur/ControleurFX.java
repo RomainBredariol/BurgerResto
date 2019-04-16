@@ -2,7 +2,6 @@ package Controleur;
 
 import MainApp.MainApp;
 import Model.BDJoueur;
-import Model.Joueur;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
