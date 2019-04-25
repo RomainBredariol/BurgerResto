@@ -24,12 +24,15 @@ public class ControleurPagePrincipale extends ControleurFX {
 	private Label or;
 	@FXML
 	private GridPane carte;
-
+	
 	@Override
 	public void setMainApp(MainApp main) {
 		this.mainApp = main;
 		setAffichageJoueur();
 		setAffichageCarte();
+		
+		
+
 	}
 
 	private void setAffichageJoueur() {
@@ -45,6 +48,7 @@ public class ControleurPagePrincipale extends ControleurFX {
 		// set de la map
 		for (int colonne = 0; colonne < 9; colonne++) {
 			for (int ligne = 0; ligne < 9; ligne++) {
+				Pane pane = new Pane();
 				ImageView image;
 
 				if (colonne == 0 && ligne == 0) {
@@ -55,54 +59,100 @@ public class ControleurPagePrincipale extends ControleurFX {
 
 				image.setFitHeight(28);
 				image.setFitWidth(28);
-				
-				this.carte.setMargin(image, new Insets(10));
-				this.carte.add(image, colonne, ligne);
+
+				pane.getChildren().add(image);
+				pane.getChildren().get(0).setLayoutX(10);
+				this.carte.add(pane, colonne, ligne);
 			}
 		}
 	}
 
-	public void majCarte() {
+	public void majCarte(int etape) {
 		int ligne = this.mainApp.joueurEnJeu.getEmplacementLigne();
 		int colonne = this.mainApp.joueurEnJeu.getEmplacementColonne();
 
-		this.carte.getChildren().remove(0);
-		this.carte.getChildren().add(0, new ImageView("/Controleur/icon/case.png"));
+		int index = ligne + (colonne * 9) + 1;
+		
+		switch (etape) {
+		case 1:
+			//Supression image
+			if(index != 1) {
+				Pane pane = (Pane) this.carte.getChildren().get(index);
+				pane.getChildren().remove(1);
+			}
+				
+			break;
+		case 2:
+			//Remplacement image
+			if (index != 1) {
+							
+				Pane pane = (Pane) this.carte.getChildren().get(index);
+
+				ImageView imageCaseVide = new ImageView("/Controleur/icon/case.png");
+				imageCaseVide.setFitHeight(28);
+				imageCaseVide.setFitWidth(28);
+
+				ImageView dot = new ImageView("/Controleur/icon/dot.png");
+				dot.setFitWidth(11);
+				dot.setFitHeight(12);
+
+				pane.getChildren().remove(0);
+				pane.getChildren().add(0, imageCaseVide);
+				pane.getChildren().get(0).setLayoutX(10);
+				
+				pane.getChildren().add(1, dot);
+				pane.getChildren().get(1).setLayoutX(18);
+				pane.getChildren().get(1).setLayoutY(8);
+				
+			}
+			break;
+		default:
+			System.out.println("Erreur");
+			break;
+		}
 	}
 
 	@FXML
 	public void clicHaut() {
 		int ligne = this.mainApp.joueurEnJeu.getEmplacementLigne();
-		// TODO supprimer l'icon man sur la case
+
 		if (ligne != 0) {
-			this.mainApp.joueurEnJeu.setEmplacementLigne(ligne + 1);
+			majCarte(1);
+			this.mainApp.joueurEnJeu.setEmplacementLigne(ligne - 1);
+			majCarte(2);
 		}
 	}
 
 	@FXML
 	public void clicBas() {
 		int ligne = this.mainApp.joueurEnJeu.getEmplacementLigne();
-		// TODO supprimer l'icon man sur la case
+
 		if (ligne != 8) {
-			this.mainApp.joueurEnJeu.setEmplacementLigne(ligne - 1);
+			majCarte(1);
+			this.mainApp.joueurEnJeu.setEmplacementLigne(ligne + 1);
+			majCarte(2);
 		}
 	}
 
 	@FXML
 	public void clicGauche() {
 		int colonne = this.mainApp.joueurEnJeu.getEmplacementColonne();
-		// TODO supprimer l'icon man sur la case
-		if (colonne != 8) {
-			this.mainApp.joueurEnJeu.setEmplacementLigne(colonne - 1);
+
+		if (colonne != 0) {
+			majCarte(1);
+			this.mainApp.joueurEnJeu.setEmplacementColonne(colonne - 1);
+			majCarte(2);
 		}
 	}
 
 	@FXML
 	public void clicDroite() {
 		int colonne = this.mainApp.joueurEnJeu.getEmplacementColonne();
-		// TODO supprimer l'icon man sur la case
-		if (colonne != 0) {
-			this.mainApp.joueurEnJeu.setEmplacementLigne(colonne + 1);
+
+		if (colonne != 8) {
+			majCarte(1);
+			this.mainApp.joueurEnJeu.setEmplacementColonne(colonne + 1);
+			majCarte(2);
 		}
 	}
 
