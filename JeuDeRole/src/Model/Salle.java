@@ -1,7 +1,5 @@
 package Model;
 
-import java.util.List;
-
 public class Salle {
 
 	public enum enumDescription {ARENE, BOUTIQUE, SALLE, SORTIE};

@@ -1,30 +1,42 @@
 package Model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Joueur extends Entitee {
 	
 	private HashMap<String, Integer> emplacement;
 	private Armure armure;
 	private Arme arme;
-	private List<Objet> sac;
+	private HashMap<Integer, Objet> sac;
 	private Carte carte;
 
 	// un nouveau joueur commence avec 20 PV, 100 d'or et un sac vide
  	public Joueur(String nom) {
 		super(nom, 1, 100);
-		this.sac = new ArrayList<Objet>();
+		this.sac = new HashMap<Integer, Objet>();
+		this.sac.put(sac.size(),new Objet("Eau", 2));
 		this.emplacement = new HashMap<String, Integer>();
 		this.emplacement.put("colonne", 0);
 		this.emplacement.put("ligne", 0);
 		this.carte = new Carte();
-		
-		// TODO arme et armure et carte
+		this.arme = new Arme("Epee en bois", 0, 1);
+		this.armure = new Armure("Bouclier en bois", 0, 1);
+		// TODO carte
 	}
  	
- 	public int getEmplacementColonne() {
+ 	public HashMap<Integer, Objet> getSac() {
+		return sac;
+	}
+
+	public void ajouterObjetSac(Objet obj) {
+		this.sac.put(sac.size(), obj);
+	}
+	
+	public void supprimerObjetSac(int key) {
+		this.sac.remove(key);
+	}
+
+	public int getEmplacementColonne() {
  		return this.emplacement.get("colonne");
  	}
  	

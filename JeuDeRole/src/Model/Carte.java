@@ -1,9 +1,6 @@
 package Model;
 
 import java.util.HashMap;
-import java.util.Random;
-
-import Model.Salle.enumDescription;
 
 public class Carte {
 	
