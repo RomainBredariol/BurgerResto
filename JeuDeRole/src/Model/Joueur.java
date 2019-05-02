@@ -19,6 +19,7 @@ public class Joueur extends Entitee {
 		this.emplacement = new HashMap<String, Integer>();
 		this.emplacement.put("colonne", 0);
 		this.emplacement.put("ligne", 0);
+		this.carte = new Carte();
 		
 		// TODO arme et armure et carte
 	}
@@ -68,11 +69,5 @@ public class Joueur extends Entitee {
 	public Carte getCarte() {
 		return carte;
 	}
-
-	public void setCarte(Carte carte) {
-		this.carte = carte;
-	}
-	
-	
 
 }

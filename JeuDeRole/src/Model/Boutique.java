@@ -2,11 +2,12 @@ package Model;
 
 import java.util.List;
 
-public class Boutique {
+public class Boutique extends Salle{
 	
 	private List<Objet> marchandise;
 	
 	public Boutique(List<Objet> marchandise) {
+		super(Salle.enumDescription.BOUTIQUE);
 		this.marchandise = this.marchandise;
 	}
 	

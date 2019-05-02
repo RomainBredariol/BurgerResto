@@ -4,32 +4,25 @@ import java.util.List;
 
 public class Salle {
 
-	private String description;
-	private List<Monstre> monstres;
-	private Porte[] portes;
+	public enum enumDescription {ARENE, BOUTIQUE, SALLE, SORTIE};
+	private enumDescription description;
 	private boolean estVisible;
+	private boolean sortie;
+	private int indexMap;
 	
-	// une salle est composé d'une description, d'une liste de montres et de plusieurs portes
-	// permettant l'accés à d'autres salles. Par defaut une salle n'est pas visible.
-	public Salle(String description, List<Monstre> monstres, Porte[] portes) {
+	// une salle est composé d'une description et d'un monstre si ce n'est pas une boutique 
+	//Par defaut une salle n'est pas visible.
+	public Salle(enumDescription description) {
 		this.description = description;
-		this.monstres =monstres;
-		this.portes = portes;
 		this.estVisible = false;
+		this.sortie = false;
 	}
 	
-	public String getDescription() {
+	public enumDescription getDescription() {
 		return this.description;
 	}
 	
-	public List<Monstre> getMonstres() {
-		return monstres;
-	}
-
-	public Porte[] getPortes() {
-		return portes;
-	}
-
+	
 	// revele la salle sur la carte quand le joueur entre dedans.
 	public void reveler() {
 		this.estVisible = true;
@@ -38,6 +31,22 @@ public class Salle {
 	// renvoie true si la salle est visible
 	public boolean estVisible() {
 		return this.estVisible;
+	}
+
+	public boolean isSortie() {
+		return sortie;
+	}
+
+	public void setSortie(boolean estSortie) {
+		this.sortie = estSortie;
+	}
+
+	public int getIndexMap() {
+		return indexMap;
+	}
+
+	public void setIndexMap(int indexMap) {
+		this.indexMap = indexMap;
 	}
 	
 }
