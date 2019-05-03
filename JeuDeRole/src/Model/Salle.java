@@ -6,6 +6,7 @@ public class Salle {
 	private enumDescription typeSalle;
 	private String texte;
 	private int indexMap;
+	private boolean estDejaVisitee;
 	
 	// une salle est composé d'une description et d'un monstre si ce n'est pas une boutique 
 	//Par defaut une salle n'est pas visible.
@@ -13,6 +14,15 @@ public class Salle {
 		this.typeSalle = typeSalle;	
 		this.indexMap = indexMap;
 		this.texte = texte;
+		this.estDejaVisitee = false;
+	}
+	
+	public void visiterSalle() {
+		this.estDejaVisitee = true;
+	}
+	
+	public boolean estDejaVisitee() {
+		return this.estDejaVisitee;
 	}
 	
 	public enumDescription getDescription() {

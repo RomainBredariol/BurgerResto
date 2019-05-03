@@ -8,5 +8,9 @@ public class Arene extends Salle {
 		super(Salle.enumDescription.ARENE, index, texte );
 		this.monstre = monstre;
 	}
+	
+	public Monstre getMonstre() {
+		return this.monstre;
+	}
 
 }

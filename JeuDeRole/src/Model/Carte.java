@@ -2,8 +2,6 @@ package Model;
 
 import java.util.ArrayList;
 
-import com.sun.media.jfxmedia.control.VideoFormat;
-
 import Model.Salle.enumDescription;
 
 public class Carte {
@@ -151,5 +149,9 @@ public class Carte {
 		lvl1[80] = new Salle(enumDescription.SALLE, 81, "En fin d'année les horaires sont bien plus sympa");
 						
 		return lvl1;
+	}
+	
+	public Salle[] getSalles() {
+		return this.salles;
 	}
 }

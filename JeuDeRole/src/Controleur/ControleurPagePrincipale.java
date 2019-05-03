@@ -3,7 +3,12 @@ package Controleur;
 import java.util.HashMap;
 
 import MainApp.MainApp;
+import Model.Arene;
+import Model.Carte;
+import Model.Combat;
 import Model.Objet;
+import Model.Salle;
+import Model.Salle.enumDescription;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -65,7 +70,6 @@ public class ControleurPagePrincipale extends ControleurFX {
 	// écris dans la fenetre de dialogue le texte passé en paramétre
 	public void ecrireDialogue(String texte) {
 		dialogue.getChildren().add(new Label(texte));
-		
 	}
 	
 	
@@ -150,46 +154,88 @@ public class ControleurPagePrincipale extends ControleurFX {
 	@FXML
 	public void clicHaut() {
 		int ligne = this.mainApp.joueurEnJeu.getEmplacementLigne();
+		int colonne = this.mainApp.joueurEnJeu.getEmplacementColonne();
 
 		if (ligne != 0) {
 			majCarte(1);
 			this.mainApp.joueurEnJeu.setEmplacementLigne(ligne - 1);
 			majCarte(2);
 		}
-		ecrireDialogue("putepute");
+		Salle salle = recupererSalle(colonne, ligne);
+		if (salle.getDescription() != enumDescription.MUR && !salle.estDejaVisitee())
+			resoudreSalle(salle);		
 	}
 
 	@FXML
 	public void clicBas() {
 		int ligne = this.mainApp.joueurEnJeu.getEmplacementLigne();
+		int colonne = this.mainApp.joueurEnJeu.getEmplacementColonne();
 
 		if (ligne != 8) {
 			majCarte(1);
 			this.mainApp.joueurEnJeu.setEmplacementLigne(ligne + 1);
 			majCarte(2);
 		}
+		Salle salle = recupererSalle(colonne, ligne);
+		if (salle.getDescription() != enumDescription.MUR && !salle.estDejaVisitee())
+			resoudreSalle(salle);
 	}
 
 	@FXML
 	public void clicGauche() {
 		int colonne = this.mainApp.joueurEnJeu.getEmplacementColonne();
+		int ligne = this.mainApp.joueurEnJeu.getEmplacementLigne();
 
 		if (colonne != 0) {
 			majCarte(1);
 			this.mainApp.joueurEnJeu.setEmplacementColonne(colonne - 1);
 			majCarte(2);
 		}
+		Salle salle = recupererSalle(colonne, ligne);
+		if (salle.getDescription() != enumDescription.MUR && !salle.estDejaVisitee())
+			resoudreSalle(salle);	
 	}
 
 	@FXML
 	public void clicDroite() {
 		int colonne = this.mainApp.joueurEnJeu.getEmplacementColonne();
+		int ligne = this.mainApp.joueurEnJeu.getEmplacementLigne();
 
 		if (colonne != 8) {
 			majCarte(1);
 			this.mainApp.joueurEnJeu.setEmplacementColonne(colonne + 1);
 			majCarte(2);
+		}		
+		Salle salle = recupererSalle(colonne, ligne);
+		if (salle.getDescription() != enumDescription.MUR && !salle.estDejaVisitee())
+			resoudreSalle(salle);
 		}
+	
+	// resous les effet de la salle (combat, texte ...)
+	private void resoudreSalle(Salle salle) {
+		// si la salle est une salle vide, lire sa description et passer la salle en état visité
+		if (salle.getDescription() == enumDescription.SALLE) {
+			ecrireDialogue(salle.getTexte());
+			salle.visiterSalle();
+		}
+		// si la salle est une arene, résoudre le combat
+		if (salle.getDescription() == enumDescription.ARENE) {
+			ecrireDialogue(salle.getTexte());
+			salle.visiterSalle();
+			// lancer le combat
+			Arene arene = (Arene)salle;
+			Combat combat = new Combat(this.mainApp.joueurEnJeu, arene.getMonstre());
+			while (!combat.estTermine()) {
+				ecrireDialogue(combat.continuer());
+			}
+		}
+	}
+	
+	// retourne la salle correspondant à la ligne et à la colonne passé en parametre
+	private Salle recupererSalle(int colonne, int ligne) {
+		Carte carte = this.mainApp.joueurEnJeu.getCarte();
+		Salle[] salles = carte.getSalles();
+		return salles[(colonne*9)+(ligne-1)];
 	}
 	
 }
