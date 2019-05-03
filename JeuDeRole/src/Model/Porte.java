@@ -17,8 +17,6 @@ public class Porte {
 	// qu'elle relie
 	public void ouvrir() {
 		this.estOuverte = true;
-		this.salle1.reveler();
-		this.salle2.reveler();
 	}
 	
 	public boolean estOuverte() {

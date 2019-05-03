@@ -7,7 +7,6 @@ public class Joueur extends Entitee {
 	private HashMap<String, Integer> emplacement;
 	private Armure armure;
 	private Arme arme;
-	private List<Objet> sac;
 	private Carte lvl1;
 	private Carte lvl2;
 	private Carte lvl3;
@@ -27,9 +26,9 @@ public class Joueur extends Entitee {
 		this.lvl3 = new Carte(3);
 		
 		// TODO arme et armure et carte
-		this.carte = new Carte();
-		this.arme = new Arme("Epee en bois", 0, 1);
-		this.armure = new Armure("Bouclier en bois", 0, 1);
+		this.carte = new Carte(1);
+		this.arme = new Arme("une feuille", 0, 1);
+		this.armure = new Armure("un manteau", 0, 1);
 		// TODO carte
 	}
  	
@@ -78,9 +77,9 @@ public class Joueur extends Entitee {
 	}
 
 	@Override
-	public void attaquer(Entitee entitee) {
-		// TODO realiser une attaque ne fonctionde l'arme
-		
+	public int attaquer(Entitee entitee) {
+		entitee.subirDegats(this.arme.getDegats());
+		return this.arme.getDegats();
 	}
 	
 	public void subirDegats(int degats) {

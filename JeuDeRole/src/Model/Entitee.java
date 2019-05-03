@@ -37,12 +37,12 @@ public abstract class Entitee {
 	
 	// cette methode inflige des degats à une entitée selon un calcul propre à
 	// chaque entitée.
-	public abstract void attaquer(Entitee entitee);
+	public abstract int attaquer(Entitee entitee);
 	
 	// diminue le nombre de points de vie de l'entitée en fonction des dégats qui lui sont infligés
 	// vérifie si l'entitée est toujours vivante aprés coup.
 	public void subirDegats(int degats) {
-		this.pv -= degats/100; // diviser par 100 car pvMax joueur = 1
+		this.pv -= degats;
 		if (this.pv <= 0 )
 			this.estVivant = false;
 	}

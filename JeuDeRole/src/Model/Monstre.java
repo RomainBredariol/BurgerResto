@@ -15,8 +15,9 @@ public class Monstre extends Entitee {
 
 	// attaque une entitée en infligeant un nombre de degats égale a la force du monstre
 	@Override
-	public void attaquer(Entitee entitee) {
+	public int attaquer(Entitee entitee) {
 		entitee.subirDegats(this.force);
+		return this.force;
 	}
 	
 	// récupére le trésor du monstre
