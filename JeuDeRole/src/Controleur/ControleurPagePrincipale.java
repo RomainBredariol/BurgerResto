@@ -9,6 +9,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 public class ControleurPagePrincipale extends ControleurFX {
 
@@ -24,6 +25,8 @@ public class ControleurPagePrincipale extends ControleurFX {
 	private Label or;
 	@FXML
 	private GridPane carte;
+	@FXML
+	private VBox dialogue;
 	
 	@Override
 	public void setMainApp(MainApp main) {
@@ -34,6 +37,13 @@ public class ControleurPagePrincipale extends ControleurFX {
 		
 
 	}
+	// écris dans la fenetre de dialogue le texte passé en paramétre
+	public void ecrireDialogue(String texte) {
+		dialogue.getChildren().add(new Label(texte));
+		
+	}
+	
+	
 
 	private void setAffichageJoueur() {
 		// set des infos du joueur
@@ -121,6 +131,7 @@ public class ControleurPagePrincipale extends ControleurFX {
 			this.mainApp.joueurEnJeu.setEmplacementLigne(ligne - 1);
 			majCarte(2);
 		}
+		ecrireDialogue("putepute");
 	}
 
 	@FXML

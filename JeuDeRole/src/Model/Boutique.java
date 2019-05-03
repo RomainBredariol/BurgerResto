@@ -6,8 +6,8 @@ public class Boutique extends Salle{
 	
 	private List<Objet> marchandise;
 	
-	public Boutique(List<Objet> marchandise) {
-		super(Salle.enumDescription.BOUTIQUE);
+	public Boutique(List<Objet> marchandise, String texte) {
+		super(Salle.enumDescription.BOUTIQUE,10, texte);
 		this.marchandise = this.marchandise;
 	}
 	
