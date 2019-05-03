@@ -1,6 +1,6 @@
 package Model;
 
-public abstract class Objet {
+public class Objet {
 	
 	private String nom;
 	private int valeur;

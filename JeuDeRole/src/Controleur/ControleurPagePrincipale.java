@@ -1,13 +1,16 @@
 package Controleur;
 
+import java.util.HashMap;
+
 import MainApp.MainApp;
+import Model.Objet;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
@@ -27,15 +30,37 @@ public class ControleurPagePrincipale extends ControleurFX {
 	private GridPane carte;
 	@FXML
 	private VBox dialogue;
+	@FXML
+	private VBox sacVbox;
 	
 	@Override
 	public void setMainApp(MainApp main) {
 		this.mainApp = main;
 		setAffichageJoueur();
 		setAffichageCarte();
-		
-		
+		setAffichageSac();
+	}
 
+	
+	private void setAffichageSac() {
+		HashMap<Integer, Objet> sac = this.mainApp.joueurEnJeu.getSac();
+		int indexSac = 0;
+		
+		while(sac.containsKey(indexSac)) {
+			HBox ligneSac = new HBox();
+						
+			Label nomObjet = new Label(sac.get(indexSac).getNom());
+			Label valeurObjet = new Label(String.valueOf(sac.get(indexSac).getValeur()));
+			Button boutonUtilisation = new Button("Utiliser");
+		
+			ligneSac.getChildren().add(nomObjet);
+			ligneSac.getChildren().add(valeurObjet);
+			ligneSac.getChildren().add(boutonUtilisation);
+			
+			
+			this.sacVbox.getChildren().add(ligneSac);
+			indexSac++;
+		}
 	}
 	// écris dans la fenetre de dialogue le texte passé en paramétre
 	public void ecrireDialogue(String texte) {
@@ -50,8 +75,8 @@ public class ControleurPagePrincipale extends ControleurFX {
 		this.nomJoueur.setText(this.mainApp.joueurEnJeu.getNom());
 		this.vie.setProgress(this.mainApp.joueurEnJeu.getPV());
 		this.or.setText(String.valueOf(this.mainApp.joueurEnJeu.getOR()));
-		// this.nomArme.setText(this.mainApp.joueurEnJeu.getArme().getNom());
-		// this.nomArmure.setText(this.mainApp.joueurEnJeu.getArmure().getNom());
+		this.nomArme.setText(this.mainApp.joueurEnJeu.getArme().getNom());
+		this.nomArmure.setText(this.mainApp.joueurEnJeu.getArmure().getNom());
 	}
 
 	private void setAffichageCarte() {
@@ -166,5 +191,5 @@ public class ControleurPagePrincipale extends ControleurFX {
 			majCarte(2);
 		}
 	}
-
+	
 }
