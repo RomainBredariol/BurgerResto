@@ -58,7 +58,7 @@ public class ControleurPagePrincipale extends ControleurFX {
 			Label valeurObjet = new Label(String.valueOf(obj.getValeur()));
 			Button boutonUtilisation = new Button("Utiliser");
 			boutonUtilisation.setOnAction(e -> clicUtiliserObjet());
-			boutonUtilisation.setId();
+			//boutonUtilisation.setId();
 		
 			ligneSac.getChildren().add(nomObjet);
 			ligneSac.getChildren().add(valeurObjet);
@@ -70,6 +70,12 @@ public class ControleurPagePrincipale extends ControleurFX {
 	}
 	// écris dans la fenetre de dialogue le texte passé en paramétre
 	public void ecrireDialogue(String texte) {
+		if (texte.length() > 65) {
+			do {
+				dialogue.getChildren().add(new Label(texte.substring(0, 65)));
+				texte = texte.substring(65, texte.length());
+			} while (texte.length() > 65);
+		}
 		dialogue.getChildren().add(new Label(texte));
 	}
 	
@@ -154,81 +160,113 @@ public class ControleurPagePrincipale extends ControleurFX {
 
 	@FXML
 	public void clicHaut() {
+		// récuperer ligne et colonne actuel du joueur
 		int ligne = this.mainApp.joueurEnJeu.getEmplacementLigne();
 		int colonne = this.mainApp.joueurEnJeu.getEmplacementColonne();
-
+		
+		// si le joueur n'est pas déjà dans la 1er ligne et que la future salle n'est pas un mur
+		// alors mettre à jour la carte, l'emplacement du joueur et résoudre les effets de la salle.
 		if (ligne != 0) {
-			majCarte(1);
-			this.mainApp.joueurEnJeu.setEmplacementLigne(ligne - 1);
-			majCarte(2);
-		}
-		Salle salle = recupererSalle(colonne, ligne);
-		if (salle.getDescription() != enumDescription.MUR && !salle.estDejaVisitee())
-			resoudreSalle(salle);		
+			// récuperer la salle vers lequel le joueur désire aller
+			Salle salle = recupererSalle(colonne, ligne-1);
+			if (salle.getDescription() != enumDescription.MUR) {
+				majCarte(1);
+				this.mainApp.joueurEnJeu.setEmplacementLigne(ligne - 1);
+				majCarte(2);
+				if (!salle.estDejaVisitee()) {
+					resoudreSalle(salle);
+				}
+			}
+		}		
 	}
 
 	@FXML
 	public void clicBas() {
+		// récuperer ligne et colonne actuel du joueur
 		int ligne = this.mainApp.joueurEnJeu.getEmplacementLigne();
 		int colonne = this.mainApp.joueurEnJeu.getEmplacementColonne();
-
+		
+		// si le joueur n'est pas déjà dans la derniere ligne et que la future salle n'est pas un mur
+		// alors mettre à jour la carte, l'emplacement du joueur et résoudre les effets de la salle.
 		if (ligne != 8) {
-			majCarte(1);
-			this.mainApp.joueurEnJeu.setEmplacementLigne(ligne + 1);
-			majCarte(2);
+			// récuperer la salle vers lequel le joueur désire aller
+			Salle salle = recupererSalle(colonne, ligne+1);
+			if (salle.getDescription() != enumDescription.MUR) {
+				majCarte(1);
+				this.mainApp.joueurEnJeu.setEmplacementLigne(ligne + 1);
+				majCarte(2);
+				if (!salle.estDejaVisitee()) {
+					resoudreSalle(salle);
+				}
+			}
 		}
-		Salle salle = recupererSalle(colonne, ligne);
-		if (salle.getDescription() != enumDescription.MUR && !salle.estDejaVisitee())
-			resoudreSalle(salle);
 	}
 
 	@FXML
 	public void clicGauche() {
+		// récuperer ligne et colonne actuel du joueur
 		int colonne = this.mainApp.joueurEnJeu.getEmplacementColonne();
 		int ligne = this.mainApp.joueurEnJeu.getEmplacementLigne();
-
+		
+		// si le joueur n'est pas déjà dans la colonne de gauche  et que la future salle n'est pas un mur
+		// alors mettre à jour la carte, l'emplacement du joueur et résoudre les effets de la salle.
 		if (colonne != 0) {
-			majCarte(1);
-			this.mainApp.joueurEnJeu.setEmplacementColonne(colonne - 1);
-			majCarte(2);
+			// récuperer la salle vers lequel le joueur désire aller
+			Salle salle = recupererSalle(colonne-1, ligne);
+			if (salle.getDescription() != enumDescription.MUR) {
+				majCarte(1);
+				this.mainApp.joueurEnJeu.setEmplacementColonne(colonne - 1);
+				majCarte(2);
+				if (!salle.estDejaVisitee()) {
+					resoudreSalle(salle);	
+				}
+			}
 		}
-		Salle salle = recupererSalle(colonne, ligne);
-		if (salle.getDescription() != enumDescription.MUR && !salle.estDejaVisitee())
-			resoudreSalle(salle);	
 	}
 
 	@FXML
 	public void clicDroite() {
+		// récuperer ligne et colonne actuel du joueur
 		int colonne = this.mainApp.joueurEnJeu.getEmplacementColonne();
 		int ligne = this.mainApp.joueurEnJeu.getEmplacementLigne();
-
+		
+		// si le joueur n'est pas déjà dans la colonne de droite  et que la future salle n'est pas un mur
+		// alors mettre à jour la carte, l'emplacement du joueur et résoudre les effets de la salle.
 		if (colonne != 8) {
-			majCarte(1);
-			this.mainApp.joueurEnJeu.setEmplacementColonne(colonne + 1);
-			majCarte(2);
+			// récuperer la salle vers lequel le joueur désire aller
+			Salle salle = recupererSalle(colonne+1, ligne);
+			if (salle.getDescription() != enumDescription.MUR) {
+				majCarte(1);
+				this.mainApp.joueurEnJeu.setEmplacementColonne(colonne + 1);
+				majCarte(2);
+				if (!salle.estDejaVisitee()) {
+					resoudreSalle(salle);
+				}
+			}
 		}		
-		Salle salle = recupererSalle(colonne, ligne);
-		if (salle.getDescription() != enumDescription.MUR && !salle.estDejaVisitee())
-			resoudreSalle(salle);
-		}
+	}
 	
-	// resous les effet de la salle (combat, texte ...)
+	// resous les effets de la salle (combat, texte ...)
 	private void resoudreSalle(Salle salle) {
 		// si la salle est une salle vide, lire sa description et passer la salle en état visité
 		if (salle.getDescription() == enumDescription.SALLE) {
-			ecrireDialogue(salle.getTexte());
-			salle.visiterSalle();
+//			ecrireDialogue(salle.getTexte());
+//			salle.visiterSalle();
+			ecrireDialogue("SALLE VIDE");
 		}
 		// si la salle est une arene, résoudre le combat
 		if (salle.getDescription() == enumDescription.ARENE) {
-			ecrireDialogue(salle.getTexte());
-			salle.visiterSalle();
+//			ecrireDialogue(salle.getTexte());
+//			salle.visiterSalle();
 			// lancer le combat
-			Arene arene = (Arene)salle;
-			Combat combat = new Combat(this.mainApp.joueurEnJeu, arene.getMonstre());
-			while (!combat.estTermine()) {
-				ecrireDialogue(combat.continuer());
-			}
+//			Arene arene = (Arene)salle;
+//			Combat combat = new Combat(this.mainApp.joueurEnJeu, arene.getMonstre());
+//			while (!combat.estTermine()) {
+//				ecrireDialogue(combat.continuer());
+//			}
+		}
+		if (salle.getDescription() == enumDescription.BOUTIQUE) {
+			ecrireDialogue(salle.getTexte());
 		}
 	}
 	
@@ -236,7 +274,10 @@ public class ControleurPagePrincipale extends ControleurFX {
 	private Salle recupererSalle(int colonne, int ligne) {
 		Carte carte = this.mainApp.joueurEnJeu.getCarte();
 		Salle[] salles = carte.getSalles();
-		return salles[(colonne*9)+(ligne-1)];
+		System.out.println("ligne : "+ligne);
+		System.out.println("Colonne : "+colonne);
+		System.out.println("salle n°"+((colonne*9)+ligne));
+		return salles[(colonne*9)+(ligne)];
 	}
 	
 	
