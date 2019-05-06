@@ -38,6 +38,12 @@ public class ControleurPagePrincipale extends ControleurFX {
 	private VBox dialogue;
 	@FXML
 	private VBox sacVbox;
+	@FXML
+	private Button boutonAttaquer, boutonFuir;
+	@FXML
+	private Button boutonHaut, boutonGauche, boutonDroite, boutonBas;
+	
+	private Combat combatEnCours;
 	
 	@Override
 	public void setMainApp(MainApp main) {
@@ -250,33 +256,63 @@ public class ControleurPagePrincipale extends ControleurFX {
 	private void resoudreSalle(Salle salle) {
 		// si la salle est une salle vide, lire sa description et passer la salle en état visité
 		if (salle.getDescription() == enumDescription.SALLE) {
-//			ecrireDialogue(salle.getTexte());
-//			salle.visiterSalle();
-			ecrireDialogue("SALLE VIDE");
+			ecrireDialogue(salle.getTexte());
+			salle.visiterSalle();
 		}
 		// si la salle est une arene, résoudre le combat
 		if (salle.getDescription() == enumDescription.ARENE) {
-//			ecrireDialogue(salle.getTexte());
-//			salle.visiterSalle();
+			ecrireDialogue(salle.getTexte());
+			salle.visiterSalle();
 			// lancer le combat
-//			Arene arene = (Arene)salle;
-//			Combat combat = new Combat(this.mainApp.joueurEnJeu, arene.getMonstre());
-//			while (!combat.estTermine()) {
-//				ecrireDialogue(combat.continuer());
-//			}
+			Arene arene = (Arene)salle;
+			combatEnCours = new Combat(this.mainApp.joueurEnJeu, arene.getMonstre());
+			// rendre accessible les bouton d'attaque et de fuite
+			boutonAttaquer.setDisable(false);
+			boutonFuir.setDisable(false);
+			// rendre innaccessible les boutons de déplacement
+			boutonHaut.setDisable(true);
+			boutonGauche.setDisable(true);
+			boutonDroite.setDisable(true);
+			boutonBas.setDisable(true);
 		}
 		if (salle.getDescription() == enumDescription.BOUTIQUE) {
 			ecrireDialogue(salle.getTexte());
 		}
 	}
 	
+	// un tour de combat si le joueur clic sur attaquer
+	@FXML
+	public void clickAttaquer() {
+		ecrireDialogue(combatEnCours.continuer());
+		// si le combat est terminé activer les boutons de déplacement, desactiver
+		// les boutons de combat
+		if (combatEnCours.estTermine()) {
+			boutonAttaquer.setDisable(true);
+			boutonFuir.setDisable(true);
+			boutonGauche.setDisable(false);
+			boutonHaut.setDisable(false);
+			boutonDroite.setDisable(false);
+			boutonBas.setDisable(false);
+		}
+	}
+	
+	// le joueur fuis le combat
+	@FXML
+	public void clickFuir() {
+		ecrireDialogue(combatEnCours.fuir());
+		// activer les boutons de déplacement, desactiver les boutons de combat
+		boutonAttaquer.setDisable(true);
+		boutonFuir.setDisable(true);
+		boutonGauche.setDisable(false);
+		boutonHaut.setDisable(false);
+		boutonDroite.setDisable(false);
+		boutonBas.setDisable(false);
+	}
+	
 	// retourne la salle correspondant à la ligne et à la colonne passé en parametre
 	private Salle recupererSalle(int colonne, int ligne) {
 		Carte carte = this.mainApp.joueurEnJeu.getCarte();
 		Salle[] salles = carte.getSalles();
-		System.out.println("ligne : "+ligne);
-		System.out.println("Colonne : "+colonne);
-		System.out.println("salle n°"+((colonne*9)+ligne));
 		return salles[(colonne*9)+(ligne)];
 	}
 	

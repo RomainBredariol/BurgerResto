@@ -186,11 +186,11 @@
             </VBox>
          </children>
       </Pane>
-      <Button layoutX="75.0" layoutY="570.0" mnemonicParsing="false" onAction="#clicBas" prefHeight="36.0" prefWidth="40.0" style="-fx-background-color: #0174DF;" text="↓" textFill="WHITE" />
-      <Button layoutX="75.0" layoutY="530.0" mnemonicParsing="false" onAction="#clicHaut" prefHeight="36.0" prefWidth="40.0" style="-fx-background-color: #0174DF;" text="↑" textFill="WHITE" />
-      <Button layoutX="120.0" layoutY="570.0" mnemonicParsing="false" onAction="#clicDroite" prefHeight="36.0" prefWidth="40.0" style="-fx-background-color: #0174DF;" text="→" textFill="WHITE" />
-      <Button layoutX="30.0" layoutY="570.0" mnemonicParsing="false" onAction="#clicGauche" prefHeight="36.0" prefWidth="40.0" style="-fx-background-color: #0174DF;" text="←" textFill="WHITE" />
-      <Button disable="true" layoutX="230.0" layoutY="530.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="80.0" style="-fx-background-color: #0174DF;" text="Attaquer" textFill="WHITE" />
-      <Button disable="true" layoutX="230.0" layoutY="570.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="80.0" style="-fx-background-color: #0174DF;" text="Acheter" textFill="WHITE" />
+      <Button fx:id="boutonBas" layoutX="75.0" layoutY="570.0" mnemonicParsing="false" onAction="#clicBas" prefHeight="36.0" prefWidth="40.0" style="-fx-background-color: #0174DF;" text="↓" textFill="WHITE" />
+      <Button fx:id="boutonHaut" layoutX="75.0" layoutY="530.0" mnemonicParsing="false" onAction="#clicHaut" prefHeight="36.0" prefWidth="40.0" style="-fx-background-color: #0174DF;" text="↑" textFill="WHITE" />
+      <Button fx:id="boutonDroite" layoutX="120.0" layoutY="570.0" mnemonicParsing="false" onAction="#clicDroite" prefHeight="36.0" prefWidth="40.0" style="-fx-background-color: #0174DF;" text="→" textFill="WHITE" />
+      <Button fx:id="boutonGauche" layoutX="30.0" layoutY="570.0" mnemonicParsing="false" onAction="#clicGauche" prefHeight="36.0" prefWidth="40.0" style="-fx-background-color: #0174DF;" text="←" textFill="WHITE" />
+      <Button fx:id="boutonAttaquer" disable="true" layoutX="230.0" layoutY="530.0" mnemonicParsing="false" onAction="#clickAttaquer" prefHeight="36.0" prefWidth="80.0" style="-fx-background-color: #0174DF;" text="Attaquer" textFill="WHITE" />
+      <Button fx:id="boutonFuir" disable="true" layoutX="230.0" layoutY="570.0" mnemonicParsing="false" onAction="#clickFuir" prefHeight="36.0" prefWidth="80.0" style="-fx-background-color: #0174DF;" text="Fuir" textFill="WHITE" />
    </children>
 </AnchorPane>
