@@ -11,6 +11,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/seb/Travail/STRI/L3/Java/JeuDeRole/Outils/jfxrt.jar"/>
+	<classpathentry kind="lib" path="jfxrt.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
