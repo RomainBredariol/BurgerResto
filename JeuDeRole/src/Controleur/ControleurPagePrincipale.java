@@ -1,6 +1,7 @@
 package Controleur;
 
 import java.util.HashMap;
+import java.util.Set;
 
 import MainApp.MainApp;
 import Model.Arene;
@@ -48,23 +49,23 @@ public class ControleurPagePrincipale extends ControleurFX {
 
 	
 	private void setAffichageSac() {
-		HashMap<Integer, Objet> sac = this.mainApp.joueurEnJeu.getSac();
-		int indexSac = 0;
-		
-		while(sac.containsKey(indexSac)) {
+		HashMap<String, Objet> sac = this.mainApp.joueurEnJeu.getSac();
+				
+		for(Objet obj : sac.values()) {
 			HBox ligneSac = new HBox();
 						
-			Label nomObjet = new Label(sac.get(indexSac).getNom());
-			Label valeurObjet = new Label(String.valueOf(sac.get(indexSac).getValeur()));
+			Label nomObjet = new Label(obj.getNom());
+			Label valeurObjet = new Label(String.valueOf(obj.getValeur()));
 			Button boutonUtilisation = new Button("Utiliser");
+			boutonUtilisation.setOnAction(e -> clicUtiliserObjet());
+			boutonUtilisation.setId();
 		
 			ligneSac.getChildren().add(nomObjet);
 			ligneSac.getChildren().add(valeurObjet);
 			ligneSac.getChildren().add(boutonUtilisation);
 			
-			
 			this.sacVbox.getChildren().add(ligneSac);
-			indexSac++;
+			
 		}
 	}
 	// écris dans la fenetre de dialogue le texte passé en paramétre
@@ -236,6 +237,18 @@ public class ControleurPagePrincipale extends ControleurFX {
 		Carte carte = this.mainApp.joueurEnJeu.getCarte();
 		Salle[] salles = carte.getSalles();
 		return salles[(colonne*9)+(ligne-1)];
+	}
+	
+	
+	@FXML
+	public void clicUtiliserObjet() {
+		
+		utiliserObjet();
+		
+	}
+	
+	public void utiliserObjet() {
+		
 	}
 	
 }

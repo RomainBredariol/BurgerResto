@@ -7,17 +7,17 @@ public class Joueur extends Entitee {
 	private HashMap<String, Integer> emplacement;
 	private Armure armure;
 	private Arme arme;
+	private HashMap<String, Objet> sac;
 	private Carte lvl1;
 	private Carte lvl2;
 	private Carte lvl3;
-	private HashMap<Integer, Objet> sac;
 	private Carte carte;
 
 	// un nouveau joueur commence avec 20 PV, 100 d'or et un sac vide
  	public Joueur(String nom) {
 		super(nom, 1, 100);
-		this.sac = new HashMap<Integer, Objet>();
-		this.sac.put(sac.size(),new Objet("Eau", 2));
+		this.sac = new HashMap<String, Objet>();
+		this.sac.put("Eau" ,new Objet("Eau", 2));
 		this.emplacement = new HashMap<String, Integer>();
 		this.emplacement.put("colonne", 0);
 		this.emplacement.put("ligne", 0);
@@ -32,16 +32,16 @@ public class Joueur extends Entitee {
 		// TODO carte
 	}
  	
- 	public HashMap<Integer, Objet> getSac() {
+ 	public HashMap<String, Objet> getSac() {
 		return sac;
 	}
 
 	public void ajouterObjetSac(Objet obj) {
-		this.sac.put(sac.size(), obj);
+		this.sac.put(obj.getNom(), obj);
 	}
 	
-	public void supprimerObjetSac(int key) {
-		this.sac.remove(key);
+	public void supprimerObjetSac(Objet obj) {
+		this.sac.remove(obj.getNom());
 	}
 
 	public int getEmplacementColonne() {
