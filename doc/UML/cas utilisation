@@ -1,7 +1,8 @@
 https://yuml.me/diagram/usecase/draw
 
 
-[Joueur]-(Rejoindre une partie),
-[Joueur qui à rejoint une partie]-(Se déplacer),
-[Joueur qui à rejoint une partie]-(Combattre un monstre),
-[Joueur qui à rejoint une partie]-(Dépenser de l'or)
+[Joueur]-(Enregistrement),
+[Joueur]-(Deplacer), (Deplacer)>(Enregistrement),
+(Deplacer)<(Combattre), (Combattre)<(Attaquer), (Combattre)<(Fuir),
+(Deplacer)<(Visiter boutique), (Visiter boutique)<(Acheter objet), (Visiter boutique)<(Reparer objet),
+[Joueur]-(Utiliser un objet), (Utiliser un objet)>(Enregistrement),
