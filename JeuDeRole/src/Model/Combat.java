@@ -1,7 +1,5 @@
 package Model;
 
-import java.util.List;
-
 public class Combat {
 	
 	private int tour;

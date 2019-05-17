@@ -11,7 +11,7 @@ public class Joueur extends Entitee {
 	private Carte lvl1;
 	private Carte lvl2;
 	private Carte lvl3;
-	private Carte carte;
+	private Carte carteEnCours;
 
 	// un nouveau joueur commence avec 20 PV, 100 d'or et un sac vide
  	public Joueur(String nom) {
@@ -26,10 +26,10 @@ public class Joueur extends Entitee {
 		this.lvl3 = new Carte(3);
 		
 		// TODO arme et armure et carte
-		this.carte = new Carte(1);
+		this.carteEnCours = lvl1;
 		this.arme = new Arme("une feuille", 0, 1);
 		this.armure = new Armure("un manteau", 0, 1);
-		// TODO carte
+		
 	}
  	
  	public HashMap<String, Objet> getSac() {
@@ -85,9 +85,18 @@ public class Joueur extends Entitee {
 	public void subirDegats(int degats) {
 		// TODO subit degats en fonction de l'armure
 	}
+	
+	public void carteSuivante() {
+		if(this.carteEnCours == this.lvl1) {
+			this.carteEnCours = this.lvl2;
+		}else if(this.carteEnCours == this.lvl2){
+			this.carteEnCours = this.lvl3;
+		}
+		
+	}
 
 	public Carte getCarte() {
-		return carte;
+		return carteEnCours;
 	}
 
 }

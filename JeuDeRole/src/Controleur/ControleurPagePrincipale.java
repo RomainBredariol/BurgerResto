@@ -1,7 +1,6 @@
 package Controleur;
 
 import java.util.HashMap;
-import java.util.Set;
 
 import MainApp.MainApp;
 import Model.Arene;
