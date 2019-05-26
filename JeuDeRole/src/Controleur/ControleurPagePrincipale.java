@@ -43,8 +43,11 @@ public class ControleurPagePrincipale extends ControleurFX {
 	private Button boutonHaut, boutonGauche, boutonDroite, boutonBas;
 	@FXML
 	private Label pvtexte;
+	@FXML
+	private Label nomMonstre;
 	
 	private Combat combatEnCours;
+	private Salle salleEnCours;
 
 	@Override
 	public void setMainApp(MainApp main) {
@@ -97,6 +100,9 @@ public class ControleurPagePrincipale extends ControleurFX {
 	}
 
 	private void setAffichageCarte() {
+		// set du monstre
+		this.nomMonstre.setText("Vous n'étes pas en combat");
+		
 		// set de la map
 		for (int colonne = 0; colonne < 9; colonne++) {
 			for (int ligne = 0; ligne < 9; ligne++) {
@@ -319,6 +325,7 @@ public class ControleurPagePrincipale extends ControleurFX {
 
 	// resous les effets de la salle (combat, texte ...)
 	private void resoudreSalle(Salle salle) {
+		this.salleEnCours = salle;
 		// si la salle est une salle vide, lire sa description et passer la salle en
 		// état visité
 		if (salle.getDescription() == enumDescription.SALLE) {
@@ -328,10 +335,11 @@ public class ControleurPagePrincipale extends ControleurFX {
 		// si la salle est une arene, résoudre le combat
 		if (salle.getDescription() == enumDescription.ARENE) {
 			ecrireDialogue(salle.getTexte());
-			salle.visiterSalle();
 			// lancer le combat
 			Arene arene = (Arene) salle;
 			combatEnCours = new Combat(this.mainApp.joueurEnJeu, arene.getMonstre());
+			// placer le nom du monstre 
+			this.nomMonstre.setText("Combat contre "+arene.getMonstre().getNom());
 			// rendre accessible les bouton d'attaque et de fuite
 			boutonAttaquer.setDisable(false);
 			boutonFuir.setDisable(false);
@@ -357,6 +365,8 @@ public class ControleurPagePrincipale extends ControleurFX {
 		this.nomArmure.setText(this.mainApp.joueurEnJeu.getArmure().getNom()+" ("+this.mainApp.joueurEnJeu.getArmure().getDefense()+"/"+this.mainApp.joueurEnJeu.getArmure().getDefenseMax()+")");		
 		// si le combat est terminé activer les boutons de déplacement, desactiver
 		// les boutons de combat
+		// mettre la salle en visité
+		// enlever le nom du monstre en cours de combat
 		if (combatEnCours.estTermine()) {
 			boutonAttaquer.setDisable(true);
 			boutonFuir.setDisable(true);
@@ -364,6 +374,9 @@ public class ControleurPagePrincipale extends ControleurFX {
 			boutonHaut.setDisable(false);
 			boutonDroite.setDisable(false);
 			boutonBas.setDisable(false);
+			this.salleEnCours.visiterSalle();
+			this.nomMonstre.setText("Vous n'étes pas en combat");
+			
 		}
 	}
 
@@ -378,6 +391,7 @@ public class ControleurPagePrincipale extends ControleurFX {
 		boutonHaut.setDisable(false);
 		boutonDroite.setDisable(false);
 		boutonBas.setDisable(false);
+		this.nomMonstre.setText("Vous n'étes pas en combat");
 	}
 
 	// retourne la salle correspondant à la ligne et à la colonne passé en parametre
