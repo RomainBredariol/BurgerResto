@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -34,7 +35,7 @@ public class ControleurPagePrincipale extends ControleurFX {
 	@FXML
 	private GridPane carte;
 	@FXML
-	private VBox dialogue;
+	private TextArea dialogue;
 	@FXML
 	private VBox sacVbox;
 	@FXML
@@ -48,6 +49,7 @@ public class ControleurPagePrincipale extends ControleurFX {
 	
 	private Combat combatEnCours;
 	private Salle salleEnCours;
+	private String logsDialogue = "";
 
 	@Override
 	public void setMainApp(MainApp main) {
@@ -80,13 +82,21 @@ public class ControleurPagePrincipale extends ControleurFX {
 
 	// écris dans la fenetre de dialogue le texte passé en paramétre
 	public void ecrireDialogue(String texte) {
-		if (texte.length() > 65) {
-			do {
-				dialogue.getChildren().add(new Label(texte.substring(0, 65)));
-				texte = texte.substring(65, texte.length());
-			} while (texte.length() > 65);
+		// formater le texte pour qu'il ne dépasse pas la taille
+		System.out.println(texte);
+		int postCurseur = 0;
+		int curseur = 0;
+		int facteur = 1;
+		while (texte.indexOf(" ",curseur+1) >= 0) {
+			curseur = texte.indexOf(" ",curseur+1);
+			if (curseur > 60 * facteur) {
+				texte = texte.substring(0, postCurseur)+"\n-"+texte.substring(postCurseur,texte.length());
+				facteur++;
+			}
+			postCurseur = curseur;			
 		}
-		dialogue.getChildren().add(new Label(texte));
+		// ecrire
+		this.dialogue.appendText("\n"+texte+"\n");
 	}
 
 	private void setAffichageJoueur() {

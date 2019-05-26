@@ -29,18 +29,18 @@ public class Combat {
 		String message = "";
 		int degats;
 		degats = this.joueur.attaquer(this.monstre);
-		message += "tour "+this.tour+" : "+this.joueur.getNom()+ " attaque "+this.monstre.getNom()+" et inflige "+degats+".";
+		message += "tour "+this.tour+" : "+this.joueur.getNom()+ " attaque "+this.monstre.getNom()+" et inflige "+degats;
 		if (this.monstre.estVivant()) {
 			degats = this.monstre.attaquer(this.joueur);
-			message += "\n"+this.monstre.getNom()+" riposte et inflige "+degats+".";
+			message += ", "+this.monstre.getNom()+" riposte et inflige "+degats+".";
 		}
 		if (!this.joueur.estVivant()) {
 			this.estTermine = true;
-			message += "\nVous tombez sous les coups de "+this.monstre.getNom()+", c'est la fin...";
+			message += ", Vous tombez sous les coups de "+this.monstre.getNom()+", c'est la fin...";
 		}
 		if (!this.monstre.estVivant() ) {
 			this.estTermine = true;
-			message += "\nVous terassez "+this.monstre.getNom()+", Victoire !!";
+			message += ", Vous terassez "+this.monstre.getNom()+", Victoire !!";
 		}
 		this.tour++;
 		return message;
