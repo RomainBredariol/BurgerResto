@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -36,7 +37,7 @@
                      <children>
                         <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@icon/user.png" />
+                              <Image url="@../../bin/Controleur/icon/user.png" />
                            </image>
                         </ImageView>
                         <Label fx:id="nomJoueur" contentDisplay="CENTER" disable="true" ellipsisString="" prefHeight="33.0" prefWidth="199.0" text="Nom du Joueur" textAlignment="CENTER">
@@ -50,7 +51,7 @@
                      <children>
                         <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@icon/sword.png" />
+                              <Image url="@../../bin/Controleur/icon/sword.png" />
                            </image>
                         </ImageView>
                         <Label fx:id="nomArme" contentDisplay="CENTER" disable="true" ellipsisString="" prefHeight="33.0" prefWidth="199.0" text="Nom de l'arme (ATK)" textAlignment="CENTER">
@@ -67,7 +68,7 @@
                      <children>
                         <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@icon/shield.png" />
+                              <Image url="@../../bin/Controleur/icon/shield.png" />
                            </image>
                         </ImageView>
                         <Label fx:id="nomArmure" contentDisplay="CENTER" disable="true" ellipsisString="" prefHeight="33.0" prefWidth="199.0" text="Nom de la défense (DEF)" textAlignment="CENTER">
@@ -84,7 +85,7 @@
                      <children>
                         <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@icon/heart.png" />
+                              <Image url="@../../bin/Controleur/icon/heart.png" />
                            </image>
                         </ImageView>
                         <ProgressBar fx:id="vie" prefHeight="27.0" prefWidth="200.0" progress="0.77">
@@ -109,7 +110,7 @@
                         </Label>
                         <ImageView fitHeight="27.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@icon/coins.png" />
+                              <Image url="@../../bin/Controleur/icon/coins.png" />
                            </image>
                            <HBox.margin>
                               <Insets left="40.0" />
@@ -156,17 +157,9 @@
             </GridPane>
          </children>
       </Pane>
-      <Pane layoutX="338.0" layoutY="370.0" prefHeight="238.0" prefWidth="466.0">
+      <Pane layoutX="338.0" layoutY="397.0" prefHeight="211.0" prefWidth="466.0">
          <children>
-            <ScrollPane prefHeight="238.0" prefWidth="466.0">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="440.0" prefWidth="445.0">
-                     <children>
-                        <VBox fx:id="dialogue" prefHeight="441.0" prefWidth="435.0" />
-                     </children>
-                  </AnchorPane>
-              </content>
-            </ScrollPane>
+            <TextArea fx:id="dialogue" prefHeight="238.0" prefWidth="466.0" />
          </children>
       </Pane>
       <Pane layoutX="29.0" layoutY="339.0" prefHeight="172.0" prefWidth="280.0">
@@ -207,5 +200,10 @@
       <Button fx:id="boutonGauche" layoutX="30.0" layoutY="570.0" mnemonicParsing="false" onAction="#clicGauche" prefHeight="36.0" prefWidth="40.0" style="-fx-background-color: #0174DF;" text="←" textFill="WHITE" />
       <Button fx:id="boutonAttaquer" disable="true" layoutX="230.0" layoutY="530.0" mnemonicParsing="false" onAction="#clickAttaquer" prefHeight="36.0" prefWidth="80.0" style="-fx-background-color: #0174DF;" text="Attaquer" textFill="WHITE" />
       <Button fx:id="boutonFuir" disable="true" layoutX="230.0" layoutY="570.0" mnemonicParsing="false" onAction="#clickFuir" prefHeight="36.0" prefWidth="80.0" style="-fx-background-color: #0174DF;" text="Fuir" textFill="WHITE" />
+      <Pane layoutX="338.0" layoutY="361.0" prefHeight="27.0" prefWidth="466.0">
+         <children>
+            <Label fx:id="nomMonstre" layoutY="6.0" prefHeight="16.0" prefWidth="466.0" text="Label" />
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
