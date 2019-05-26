@@ -45,7 +45,7 @@ public class ControleurPagePrincipale extends ControleurFX {
 	private Label pvtexte;
 	
 	private Combat combatEnCours;
-	
+
 	@Override
 	public void setMainApp(MainApp main) {
 		this.mainApp = main;
@@ -54,27 +54,27 @@ public class ControleurPagePrincipale extends ControleurFX {
 		setAffichageSac();
 	}
 
-	
 	private void setAffichageSac() {
 		HashMap<String, Objet> sac = this.mainApp.joueurEnJeu.getSac();
-				
-		for(Objet obj : sac.values()) {
+
+		for (Objet obj : sac.values()) {
 			HBox ligneSac = new HBox();
-						
+
 			Label nomObjet = new Label(obj.getNom());
 			Label valeurObjet = new Label(String.valueOf(obj.getValeur()));
 			Button boutonUtilisation = new Button("Utiliser");
 			boutonUtilisation.setOnAction(e -> clicUtiliserObjet());
-			//boutonUtilisation.setId();
-		
+			// boutonUtilisation.setId();
+
 			ligneSac.getChildren().add(nomObjet);
 			ligneSac.getChildren().add(valeurObjet);
 			ligneSac.getChildren().add(boutonUtilisation);
-			
+
 			this.sacVbox.getChildren().add(ligneSac);
-			
+
 		}
 	}
+
 	// écris dans la fenetre de dialogue le texte passé en paramétre
 	public void ecrireDialogue(String texte) {
 		if (texte.length() > 65) {
@@ -85,8 +85,6 @@ public class ControleurPagePrincipale extends ControleurFX {
 		}
 		dialogue.getChildren().add(new Label(texte));
 	}
-	
-	
 
 	private void setAffichageJoueur() {
 		// set des infos du joueur
@@ -126,20 +124,20 @@ public class ControleurPagePrincipale extends ControleurFX {
 		int colonne = this.mainApp.joueurEnJeu.getEmplacementColonne();
 
 		int index = ligne + (colonne * 9) + 1;
-		
+
 		switch (etape) {
 		case 1:
-			//Supression image
-			if(index != 1 && index != 10) {
+			// Supression image
+			if (index != 1 && index != 10) {
 				Pane pane = (Pane) this.carte.getChildren().get(index);
 				pane.getChildren().remove(1);
 			}
-				
+
 			break;
 		case 2:
-			//Remplacement image par le point
+			// Remplacement image par le point
 			if (index != 1) {
-							
+
 				Pane pane = (Pane) this.carte.getChildren().get(index);
 
 				ImageView imageCaseVide = new ImageView("/Controleur/icon/case.png");
@@ -153,15 +151,15 @@ public class ControleurPagePrincipale extends ControleurFX {
 				pane.getChildren().remove(0);
 				pane.getChildren().add(0, imageCaseVide);
 				pane.getChildren().get(0).setLayoutX(10);
-				
+
 				pane.getChildren().add(1, dot);
 				pane.getChildren().get(1).setLayoutX(18);
 				pane.getChildren().get(1).setLayoutY(8);
-				
+
 			}
 			break;
 		case 3:
-			//Remplacement image par la boutique
+			// Remplacement image par la boutique
 			Pane pane = (Pane) this.carte.getChildren().get(index);
 
 			ImageView shop = new ImageView("/Controleur/icon/shop.png");
@@ -171,7 +169,7 @@ public class ControleurPagePrincipale extends ControleurFX {
 			pane.getChildren().remove(0);
 			pane.getChildren().add(0, shop);
 			pane.getChildren().get(0).setLayoutX(10);
-			
+
 			break;
 		default:
 			System.out.println("Erreur");
@@ -184,21 +182,33 @@ public class ControleurPagePrincipale extends ControleurFX {
 		// récuperer ligne et colonne actuel du joueur
 		int ligne = this.mainApp.joueurEnJeu.getEmplacementLigne();
 		int colonne = this.mainApp.joueurEnJeu.getEmplacementColonne();
-		
-		// si le joueur n'est pas déjà dans la 1er ligne et que la future salle n'est pas un mur
-		// alors mettre à jour la carte, l'emplacement du joueur et résoudre les effets de la salle.
+
+		// si le joueur n'est pas déjà dans la 1er ligne et que la future salle n'est
+		// pas un mur
+		// alors mettre à jour la carte, l'emplacement du joueur et résoudre les effets
+		// de la salle.
 		if (ligne != 0) {
 			// récuperer la salle vers lequel le joueur désire aller
-			Salle salle = recupererSalle(colonne, ligne-1);
+			Salle salle = recupererSalle(colonne, ligne - 1);
 			if (salle.getDescription() != enumDescription.MUR) {
 				majCarte(1);
+
 				this.mainApp.joueurEnJeu.setEmplacementLigne(ligne - 1);
-				majCarte(2);
+
+				// Si la salle est une boutique
+				if (salle.getDescription() == enumDescription.BOUTIQUE) {
+					// entre dans la boutique
+					entrerDansBoutqiue();
+					majCarte(3);
+				} else {
+					majCarte(2);
+				}
+
 				if (!salle.estDejaVisitee()) {
 					resoudreSalle(salle);
 				}
 			}
-		}		
+		}
 	}
 
 	@FXML
@@ -206,16 +216,28 @@ public class ControleurPagePrincipale extends ControleurFX {
 		// récuperer ligne et colonne actuel du joueur
 		int ligne = this.mainApp.joueurEnJeu.getEmplacementLigne();
 		int colonne = this.mainApp.joueurEnJeu.getEmplacementColonne();
-		
-		// si le joueur n'est pas déjà dans la derniere ligne et que la future salle n'est pas un mur
-		// alors mettre à jour la carte, l'emplacement du joueur et résoudre les effets de la salle.
+
+		// si le joueur n'est pas déjà dans la derniere ligne et que la future salle
+		// n'est pas un mur
+		// alors mettre à jour la carte, l'emplacement du joueur et résoudre les effets
+		// de la salle.
 		if (ligne != 8) {
 			// récuperer la salle vers lequel le joueur désire aller
-			Salle salle = recupererSalle(colonne, ligne+1);
+			Salle salle = recupererSalle(colonne, ligne + 1);
 			if (salle.getDescription() != enumDescription.MUR) {
 				majCarte(1);
+
 				this.mainApp.joueurEnJeu.setEmplacementLigne(ligne + 1);
-				majCarte(2);
+
+				// Si la salle est une boutique
+				if (salle.getDescription() == enumDescription.BOUTIQUE) {
+					// entre dans la boutique
+					entrerDansBoutqiue();
+					majCarte(3);
+				} else {
+					majCarte(2);
+				}
+
 				if (!salle.estDejaVisitee()) {
 					resoudreSalle(salle);
 				}
@@ -228,18 +250,30 @@ public class ControleurPagePrincipale extends ControleurFX {
 		// récuperer ligne et colonne actuel du joueur
 		int colonne = this.mainApp.joueurEnJeu.getEmplacementColonne();
 		int ligne = this.mainApp.joueurEnJeu.getEmplacementLigne();
-		
-		// si le joueur n'est pas déjà dans la colonne de gauche  et que la future salle n'est pas un mur
-		// alors mettre à jour la carte, l'emplacement du joueur et résoudre les effets de la salle.
+
+		// si le joueur n'est pas déjà dans la colonne de gauche et que la future salle
+		// n'est pas un mur
+		// alors mettre à jour la carte, l'emplacement du joueur et résoudre les effets
+		// de la salle.
 		if (colonne != 0) {
 			// récuperer la salle vers lequel le joueur désire aller
-			Salle salle = recupererSalle(colonne-1, ligne);
+			Salle salle = recupererSalle(colonne - 1, ligne);
 			if (salle.getDescription() != enumDescription.MUR) {
 				majCarte(1);
+
 				this.mainApp.joueurEnJeu.setEmplacementColonne(colonne - 1);
-				majCarte(2);
+
+				// Si la salle est une boutique
+				if (salle.getDescription() == enumDescription.BOUTIQUE) {
+					// entre dans la boutique
+					entrerDansBoutqiue();
+					majCarte(3);
+				} else {
+					majCarte(2);
+				}
+
 				if (!salle.estDejaVisitee()) {
-					resoudreSalle(salle);	
+					resoudreSalle(salle);
 				}
 			}
 		}
@@ -250,33 +284,43 @@ public class ControleurPagePrincipale extends ControleurFX {
 		// récuperer ligne et colonne actuel du joueur
 		int colonne = this.mainApp.joueurEnJeu.getEmplacementColonne();
 		int ligne = this.mainApp.joueurEnJeu.getEmplacementLigne();
-		
-		// si le joueur n'est pas déjà dans la colonne de droite  et que la future salle n'est pas un mur
-		// alors mettre à jour la carte, l'emplacement du joueur et résoudre les effets de la salle.
+
+		// si le joueur n'est pas déjà dans la colonne de droite et que la future salle
+		// n'est pas un mur
+		// alors mettre à jour la carte, l'emplacement du joueur et résoudre les effets
+		// de la salle.
 		if (colonne != 8) {
 			// récuperer la salle vers lequel le joueur désire aller
-			Salle salle = recupererSalle(colonne+1, ligne);
+			Salle salle = recupererSalle(colonne + 1, ligne);
 			if (salle.getDescription() != enumDescription.MUR) {
 				majCarte(1);
+
 				this.mainApp.joueurEnJeu.setEmplacementColonne(colonne + 1);
-				
-				//Si la salle est une boutique
-				if(salle.getDescription() == enumDescription.BOUTIQUE) {
+
+				// Si la salle est une boutique
+				if (salle.getDescription() == enumDescription.BOUTIQUE) {
+					// entre dans la boutique
+					entrerDansBoutqiue();
 					majCarte(3);
-				}else {
+				} else {
 					majCarte(2);
 				}
-				
+
 				if (!salle.estDejaVisitee()) {
 					resoudreSalle(salle);
 				}
 			}
-		}		
+		}
 	}
-	
+
+	private void entrerDansBoutqiue() {
+		this.mainApp.showPagePopUp("entrerBoutique");
+	}
+
 	// resous les effets de la salle (combat, texte ...)
 	private void resoudreSalle(Salle salle) {
-		// si la salle est une salle vide, lire sa description et passer la salle en état visité
+		// si la salle est une salle vide, lire sa description et passer la salle en
+		// état visité
 		if (salle.getDescription() == enumDescription.SALLE) {
 			ecrireDialogue(salle.getTexte());
 			salle.visiterSalle();
@@ -286,7 +330,7 @@ public class ControleurPagePrincipale extends ControleurFX {
 			ecrireDialogue(salle.getTexte());
 			salle.visiterSalle();
 			// lancer le combat
-			Arene arene = (Arene)salle;
+			Arene arene = (Arene) salle;
 			combatEnCours = new Combat(this.mainApp.joueurEnJeu, arene.getMonstre());
 			// rendre accessible les bouton d'attaque et de fuite
 			boutonAttaquer.setDisable(false);
@@ -301,7 +345,7 @@ public class ControleurPagePrincipale extends ControleurFX {
 			ecrireDialogue(salle.getTexte());
 		}
 	}
-	
+
 	// un tour de combat si le joueur clic sur attaquer
 	@FXML
 	public void clickAttaquer() {
@@ -322,7 +366,7 @@ public class ControleurPagePrincipale extends ControleurFX {
 			boutonBas.setDisable(false);
 		}
 	}
-	
+
 	// le joueur fuis le combat
 	@FXML
 	public void clickFuir() {
@@ -335,24 +379,23 @@ public class ControleurPagePrincipale extends ControleurFX {
 		boutonDroite.setDisable(false);
 		boutonBas.setDisable(false);
 	}
-	
+
 	// retourne la salle correspondant à la ligne et à la colonne passé en parametre
 	private Salle recupererSalle(int colonne, int ligne) {
 		Carte carte = this.mainApp.joueurEnJeu.getCarte();
 		Salle[] salles = carte.getSalles();
-		return salles[(colonne*9)+(ligne)];
+		return salles[(colonne * 9) + (ligne)];
 	}
-	
-	
+
 	@FXML
 	public void clicUtiliserObjet() {
-		
+
 		utiliserObjet();
-		
+
 	}
-	
+
 	public void utiliserObjet() {
-		
+
 	}
-	
+
 }

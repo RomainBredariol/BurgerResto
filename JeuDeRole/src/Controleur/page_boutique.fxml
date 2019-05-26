@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="822.0" style="-fx-background-color: #E6E6E6;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controleur.ControleurPageBoutique">
+   <children>
+      <Pane prefHeight="49.0" prefWidth="822.0" style="-fx-background-color: #0174DF;">
+         <children>
+            <Label fx:id="menu" layoutX="123.0" layoutY="12.0" onMouseClicked="#retourPageConnexion" prefHeight="26.0" prefWidth="245.0" text="Super Tower Rise Invasion" textFill="WHITE">
+               <font>
+                  <Font name="Ubuntu Light" size="20.0" />
+               </font>
+            </Label>
+            <Button layoutY="-1.0" mnemonicParsing="false" onAction="#retourAuJeu" prefHeight="49.0" prefWidth="116.0" style="-fx-background-color: #2E9AFE;" text="Retour Au Jeu" textFill="WHITE" />
+         </children>
+      </Pane>
+      <Pane layoutX="29.0" layoutY="77.0" prefHeight="238.0" prefWidth="280.0" style="-fx-border-color: black;">
+         <children>
+            <VBox layoutX="14.0" layoutY="14.0">
+               <children>
+                  <HBox>
+                     <children>
+                        <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@icon/user.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="nomJoueur" contentDisplay="CENTER" disable="true" ellipsisString="" prefHeight="33.0" prefWidth="199.0" text="Nom du Joueur" textAlignment="CENTER">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="10.0">
+                     <children>
+                        <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@icon/sword.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="nomArme" contentDisplay="CENTER" disable="true" ellipsisString="" prefHeight="33.0" prefWidth="199.0" text="Nom de l'arme (ATK)" textAlignment="CENTER">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="46.0">
+                     <children>
+                        <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@icon/shield.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="nomArmure" contentDisplay="CENTER" disable="true" ellipsisString="" prefHeight="33.0" prefWidth="199.0" text="Nom de la défense (DEF)" textAlignment="CENTER">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="102.0">
+                     <children>
+                        <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@icon/heart.png" />
+                           </image>
+                        </ImageView>
+                        <ProgressBar fx:id="vie" prefHeight="27.0" prefWidth="200.0" progress="0.77">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </ProgressBar>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <ImageView fitHeight="27.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@icon/coins.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="190.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <Label fx:id="or" contentDisplay="CENTER" disable="true" ellipsisString="" prefHeight="33.0" prefWidth="48.0" text="0" textAlignment="CENTER">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+      <Pane layoutX="29.0" layoutY="339.0" prefHeight="172.0" prefWidth="280.0">
+         <children>
+            <VBox>
+               <children>
+                  <Pane>
+                     <children>
+                        <Text layoutX="122.0" layoutY="5.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sac" textAlignment="CENTER" wrappingWidth="36.0" />
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Pane>
+                  <ScrollPane prefHeight="254.0" prefWidth="280.0">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="467.0" prefWidth="260.0">
+                           <children>
+                              <VBox fx:id="sacVbox" prefHeight="445.0" prefWidth="262.0" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+      <Pane layoutX="513.0" layoutY="339.0" prefHeight="172.0" prefWidth="280.0">
+         <children>
+            <VBox>
+               <children>
+                  <Pane>
+                     <children>
+                        <Text layoutX="103.0" layoutY="5.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Boutique" textAlignment="CENTER" wrappingWidth="75.0" />
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Pane>
+                  <ScrollPane prefHeight="254.0" prefWidth="280.0">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="467.0" prefWidth="260.0">
+                           <children>
+                              <VBox fx:id="sacVbox1" prefHeight="445.0" prefWidth="262.0" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </ScrollPane>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

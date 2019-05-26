@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import Controleur.ControleurEntrerBoutique;
 import Controleur.ControleurFX;
+import Controleur.ControleurPageBoutique;
 import Controleur.ControleurPageConnexion;
 import Controleur.ControleurPageErreurSaisieNomJoueur;
 import Controleur.ControleurPagePrincipale;
@@ -30,6 +32,8 @@ public class MainApp extends Application {
 			this.page.put("connexion", "/Controleur/connexion.fxml");
 			this.page.put("principale", "/Controleur/page_principale.fxml");
 			this.page.put("erreurSaisieNomJoueur", "/Controleur/page_erreurSaisieNomJoueur.fxml");
+			this.page.put("entrerBoutique", "/Controleur/page_entrerBoutique.fxml");
+			this.page.put("boutique", "/Controleur/page_boutique.fxml");
 			
 			showPage("connexion");	
 
@@ -54,6 +58,9 @@ public class MainApp extends Application {
 				case "principale":
 					controleur = new ControleurPagePrincipale();
 					break;	
+				case "boutique":
+					controleur = new ControleurPageBoutique();
+					break;
 				default:
 					System.out.println("** ERREUR ** : Mauvaise Page");
 					break;	
@@ -90,7 +97,11 @@ public class MainApp extends Application {
 					case "erreurSaisieNomJoueur":
 						controleur = new ControleurPageErreurSaisieNomJoueur();
 						fenetrePopUp.setTitle("Erreur");
-						break;	
+						break;
+					case "entrerBoutique":
+						controleur = new ControleurEntrerBoutique();
+						fenetrePopUp.setTitle("Entrer Boutique");
+						break;
 					default:
 						System.out.println("** ERREUR ** : Mauvaise Page");
 						break;	
