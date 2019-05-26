@@ -15,7 +15,7 @@ public class Joueur extends Entitee {
 
 	// un nouveau joueur commence avec 20 PV, 100 d'or et un sac vide
  	public Joueur(String nom) {
-		super(nom, 1, 100);
+		super(nom, 20, 100);
 		this.sac = new HashMap<String, Objet>();
 		this.sac.put("Eau" ,new Objet("Eau", 2));
 		this.emplacement = new HashMap<String, Integer>();
@@ -27,8 +27,8 @@ public class Joueur extends Entitee {
 		
 		// TODO arme et armure et carte
 		this.carteEnCours = lvl1;
-		this.arme = new Arme("une feuille", 0, 1);
-		this.armure = new Armure("un manteau", 0, 1);
+		this.arme = new Arme("une feuille", 0, 5);
+		this.armure = new Armure("un manteau", 0, 5);
 		
 	}
  	
@@ -82,8 +82,9 @@ public class Joueur extends Entitee {
 		return this.arme.getDegats();
 	}
 	
+	// le joueur subit des degats moins ce que l'armure absorbe
 	public void subirDegats(int degats) {
-		// TODO subit degats en fonction de l'armure
+		super.subirDegats(degats-this.armure.subirDegats(degats));
 	}
 	
 	public void carteSuivante() {

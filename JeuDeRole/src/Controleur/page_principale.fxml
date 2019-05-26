@@ -99,15 +99,23 @@
                   </HBox>
                   <HBox>
                      <children>
+                        <Label fx:id="pvtexte" contentDisplay="CENTER" disable="true" ellipsisString="" prefHeight="33.0" prefWidth="89.0" text="0" textAlignment="CENTER">
+                           <padding>
+                              <Insets left="30.0" />
+                           </padding>
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </Label>
                         <ImageView fitHeight="27.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@icon/coins.png" />
                            </image>
                            <HBox.margin>
-                              <Insets left="190.0" />
+                              <Insets left="40.0" />
                            </HBox.margin>
                         </ImageView>
-                        <Label fx:id="or" contentDisplay="CENTER" disable="true" ellipsisString="" prefHeight="33.0" prefWidth="48.0" text="0" textAlignment="CENTER">
+                        <Label fx:id="or" contentDisplay="CENTER" disable="true" ellipsisString="" prefHeight="33.0" prefWidth="70.0" text="0" textAlignment="CENTER">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>

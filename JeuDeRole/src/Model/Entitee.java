@@ -23,6 +23,10 @@ public abstract class Entitee {
 		return this.pv;
 	}
 	
+	public int getPVMax() {
+		return this.pvMax;
+	}
+	
 	public int getOR() {
 		return this.or;
 	}

@@ -41,6 +41,8 @@ public class ControleurPagePrincipale extends ControleurFX {
 	private Button boutonAttaquer, boutonFuir;
 	@FXML
 	private Button boutonHaut, boutonGauche, boutonDroite, boutonBas;
+	@FXML
+	private Label pvtexte;
 	
 	private Combat combatEnCours;
 	
@@ -91,8 +93,9 @@ public class ControleurPagePrincipale extends ControleurFX {
 		this.nomJoueur.setText(this.mainApp.joueurEnJeu.getNom());
 		this.vie.setProgress(this.mainApp.joueurEnJeu.getPV());
 		this.or.setText(String.valueOf(this.mainApp.joueurEnJeu.getOR()));
-		this.nomArme.setText(this.mainApp.joueurEnJeu.getArme().getNom());
-		this.nomArmure.setText(this.mainApp.joueurEnJeu.getArmure().getNom());
+		this.nomArme.setText(this.mainApp.joueurEnJeu.getArme().getNom()+" ("+this.mainApp.joueurEnJeu.getArme().getDegats()+")");
+		this.nomArmure.setText(this.mainApp.joueurEnJeu.getArmure().getNom()+" ("+this.mainApp.joueurEnJeu.getArmure().getDefense()+"/"+this.mainApp.joueurEnJeu.getArmure().getDefenseMax()+")");
+		this.pvtexte.setText(this.mainApp.joueurEnJeu.getPV()+"/"+this.mainApp.joueurEnJeu.getPVMax());
 	}
 
 	private void setAffichageCarte() {
@@ -283,6 +286,11 @@ public class ControleurPagePrincipale extends ControleurFX {
 	@FXML
 	public void clickAttaquer() {
 		ecrireDialogue(combatEnCours.continuer());
+		// mettre à jour les PV
+		this.pvtexte.setText(this.mainApp.joueurEnJeu.getPV()+"/"+this.mainApp.joueurEnJeu.getPVMax());
+		this.vie.setProgress((float)this.mainApp.joueurEnJeu.getPV()/(float)this.mainApp.joueurEnJeu.getPVMax());
+		// mettre à jour la vie de l'armure
+		this.nomArmure.setText(this.mainApp.joueurEnJeu.getArmure().getNom()+" ("+this.mainApp.joueurEnJeu.getArmure().getDefense()+"/"+this.mainApp.joueurEnJeu.getArmure().getDefenseMax()+")");		
 		// si le combat est terminé activer les boutons de déplacement, desactiver
 		// les boutons de combat
 		if (combatEnCours.estTermine()) {

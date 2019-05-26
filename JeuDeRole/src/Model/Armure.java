@@ -23,10 +23,17 @@ public class Armure extends Objet {
 		return defenseMax;
 	}
 	
-	public void subirDegats(int degats) {
+	// retourne le nombre de degats absorbés par l'armure
+	public int subirDegats(int degats) {
 		this.defense -= degats;
-		// TODO : implementer un controle pour que cela ne devienne pas negative ? 
-		// throw exception ?
+		int degatsAborbes = 0;
+		if (this.defense < 0) {
+			degatsAborbes = degats +this.defense;
+			this.defense = 0;
+		} else {
+			degatsAborbes = degats;
+		}
+		return degatsAborbes;
 	}
 	
 	// répare une armure en mettant son nombre de points de défense au max.
