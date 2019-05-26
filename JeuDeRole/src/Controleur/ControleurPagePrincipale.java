@@ -54,6 +54,8 @@ public class ControleurPagePrincipale extends ControleurFX {
 	private Combat combatEnCours;
 	private Salle salleEnCours;
 	private String logsDialogue = "";
+	private enum directionClic {GAUCHE, DROITE, HAUT, BAS};
+	private directionClic dernierClic;
 
 	@Override
 	public void setMainApp(MainApp main) {
@@ -255,6 +257,7 @@ public class ControleurPagePrincipale extends ControleurFX {
 
 	@FXML
 	public void clicHaut() {
+		this.dernierClic = directionClic.HAUT;
 		// récuperer ligne et colonne actuel du joueur
 		int ligne = this.mainApp.joueurEnJeu.getEmplacementLigne();
 		int colonne = this.mainApp.joueurEnJeu.getEmplacementColonne();
@@ -289,6 +292,7 @@ public class ControleurPagePrincipale extends ControleurFX {
 
 	@FXML
 	public void clicBas() {
+		this.dernierClic = directionClic.BAS;
 		// récuperer ligne et colonne actuel du joueur
 		int ligne = this.mainApp.joueurEnJeu.getEmplacementLigne();
 		int colonne = this.mainApp.joueurEnJeu.getEmplacementColonne();
@@ -323,6 +327,7 @@ public class ControleurPagePrincipale extends ControleurFX {
 
 	@FXML
 	public void clicGauche() {
+		this.dernierClic = directionClic.GAUCHE;
 		// récuperer ligne et colonne actuel du joueur
 		int colonne = this.mainApp.joueurEnJeu.getEmplacementColonne();
 		int ligne = this.mainApp.joueurEnJeu.getEmplacementLigne();
@@ -357,6 +362,7 @@ public class ControleurPagePrincipale extends ControleurFX {
 
 	@FXML
 	public void clicDroite() {
+		this.dernierClic = directionClic.DROITE;
 		// récuperer ligne et colonne actuel du joueur
 		int colonne = this.mainApp.joueurEnJeu.getEmplacementColonne();
 		int ligne = this.mainApp.joueurEnJeu.getEmplacementLigne();
@@ -459,6 +465,22 @@ public class ControleurPagePrincipale extends ControleurFX {
 		boutonDroite.setDisable(false);
 		boutonBas.setDisable(false);
 		this.nomMonstre.setText("Vous n'étes pas en combat");
+		switch (this.dernierClic) {
+		case HAUT:
+			clicBas();
+			break;
+		case BAS:
+			clicHaut();
+			break;
+		case GAUCHE:
+			clicDroite();
+			break;
+		case DROITE:
+			clicGauche();
+			break;
+		default:
+			break;
+		}
 	}
 
 	// retourne la salle correspondant à la ligne et à la colonne passé en parametre
