@@ -127,14 +127,14 @@ public class ControleurPagePrincipale extends ControleurFX {
 		switch (etape) {
 		case 1:
 			//Supression image
-			if(index != 1) {
+			if(index != 1 && index != 10) {
 				Pane pane = (Pane) this.carte.getChildren().get(index);
 				pane.getChildren().remove(1);
 			}
 				
 			break;
 		case 2:
-			//Remplacement image
+			//Remplacement image par le point
 			if (index != 1) {
 							
 				Pane pane = (Pane) this.carte.getChildren().get(index);
@@ -156,6 +156,19 @@ public class ControleurPagePrincipale extends ControleurFX {
 				pane.getChildren().get(1).setLayoutY(8);
 				
 			}
+			break;
+		case 3:
+			//Remplacement image par la boutique
+			Pane pane = (Pane) this.carte.getChildren().get(index);
+
+			ImageView shop = new ImageView("/Controleur/icon/shop.png");
+			shop.setFitHeight(28);
+			shop.setFitWidth(28);
+
+			pane.getChildren().remove(0);
+			pane.getChildren().add(0, shop);
+			pane.getChildren().get(0).setLayoutX(10);
+			
 			break;
 		default:
 			System.out.println("Erreur");
@@ -243,7 +256,14 @@ public class ControleurPagePrincipale extends ControleurFX {
 			if (salle.getDescription() != enumDescription.MUR) {
 				majCarte(1);
 				this.mainApp.joueurEnJeu.setEmplacementColonne(colonne + 1);
-				majCarte(2);
+				
+				//Si la salle est une boutique
+				if(salle.getDescription() == enumDescription.BOUTIQUE) {
+					majCarte(3);
+				}else {
+					majCarte(2);
+				}
+				
 				if (!salle.estDejaVisitee()) {
 					resoudreSalle(salle);
 				}
