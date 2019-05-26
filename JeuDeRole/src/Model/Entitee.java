@@ -51,6 +51,10 @@ public abstract class Entitee {
 			this.estVivant = false;
 	}
 	
+	public void potion(int pvGagne){
+		this.pv += pvGagne;
+	}
+	
 	// soigne l'entiée jusqu'a son nombre de point de vie max
 	public void soigner() {
 		this.pv = this.pvMax;

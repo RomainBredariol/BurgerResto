@@ -4,12 +4,15 @@ import java.util.HashMap;
 
 import MainApp.MainApp;
 import Model.Arene;
+import Model.Arme;
+import Model.Armure;
 import Model.Carte;
 import Model.Combat;
 import Model.Objet;
 import Model.Salle;
 import Model.Salle.enumDescription;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -18,6 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class ControleurPagePrincipale extends ControleurFX {
@@ -59,25 +63,73 @@ public class ControleurPagePrincipale extends ControleurFX {
 		setAffichageSac();
 	}
 
+	// on affiche l'ensemble du sac
 	private void setAffichageSac() {
+		this.sacVbox.getChildren().clear();
 		HashMap<String, Objet> sac = this.mainApp.joueurEnJeu.getSac();
 
 		for (Objet obj : sac.values()) {
 			HBox ligneSac = new HBox();
 
+			// nom de l'objet
 			Label nomObjet = new Label(obj.getNom());
-			Label valeurObjet = new Label(String.valueOf(obj.getValeur()));
-			Button boutonUtilisation = new Button("Utiliser");
-			boutonUtilisation.setOnAction(e -> clicUtiliserObjet());
-			// boutonUtilisation.setId();
+			nomObjet.setPrefSize(86, 20);
+			nomObjet.setAlignment(Pos.CENTER);
 
+			// sa valeur
+			Label valeurObjet = new Label(String.valueOf(obj.getValeur()));
+			valeurObjet.setPrefSize(86, 20);
+			valeurObjet.setAlignment(Pos.CENTER);
+
+			// bouton utiliser
+			Button boutonUtilisation = new Button("Utiliser");
+			boutonUtilisation.setPrefSize(86, 20);
+			boutonUtilisation.setAlignment(Pos.CENTER);
+			boutonUtilisation.setOnAction(e -> clicUtiliserObjet(nomObjet.getText()));
+
+			// on ajoute les elements au hbox
 			ligneSac.getChildren().add(nomObjet);
 			ligneSac.getChildren().add(valeurObjet);
 			ligneSac.getChildren().add(boutonUtilisation);
 
+			// on ajoute le hbox à la vbox
 			this.sacVbox.getChildren().add(ligneSac);
-
 		}
+	}
+
+	
+	public void clicUtiliserObjet(String nomObjet) {
+		HashMap<String, Objet> sac = this.mainApp.joueurEnJeu.getSac();
+
+		utiliserObjet(sac.get(nomObjet));
+	}
+
+	//utilise un objet contenu dans le sac
+	public void utiliserObjet(Objet obj) {
+		switch (obj.getClass().getSimpleName()) {
+		case "Arme":
+			//equipe l'arme et supprime l'objet du sac
+			this.mainApp.joueurEnJeu.setArme((Arme) obj);
+			this.mainApp.joueurEnJeu.supprimerObjetSac(obj);
+			break;
+		case "Armure":
+			//equipe l'armure et supprime l'objet du sac
+			this.mainApp.joueurEnJeu.setArmure((Armure) obj);
+			this.mainApp.joueurEnJeu.supprimerObjetSac(obj);
+			break;
+		case "Objet":
+			//consomme l'objet
+			if((this.mainApp.joueurEnJeu.getPV()+obj.getValeur()) <= 20 ) {
+				this.mainApp.joueurEnJeu.potion(obj.getValeur());
+				this.mainApp.joueurEnJeu.supprimerObjetSac(obj);
+			}
+			break;
+		default:
+			break;
+		}
+		//met a jour les differents affichage
+		setAffichageJoueur();
+		setAffichageSac();
 	}
 
 	// écris dans la fenetre de dialogue le texte passé en paramétre
@@ -99,16 +151,24 @@ public class ControleurPagePrincipale extends ControleurFX {
 		this.dialogue.appendText("\n"+texte+"\n");
 	}
 
+	//affiche les donnees du joueur
 	private void setAffichageJoueur() {
 		// set des infos du joueur
 		this.nomJoueur.setText(this.mainApp.joueurEnJeu.getNom());
 		this.vie.setProgress(this.mainApp.joueurEnJeu.getPV());
 		this.or.setText(String.valueOf(this.mainApp.joueurEnJeu.getOR()));
-		this.nomArme.setText(this.mainApp.joueurEnJeu.getArme().getNom()+" ("+this.mainApp.joueurEnJeu.getArme().getDegats()+")");
-		this.nomArmure.setText(this.mainApp.joueurEnJeu.getArmure().getNom()+" ("+this.mainApp.joueurEnJeu.getArmure().getDefense()+"/"+this.mainApp.joueurEnJeu.getArmure().getDefenseMax()+")");
-		this.pvtexte.setText(this.mainApp.joueurEnJeu.getPV()+"/"+this.mainApp.joueurEnJeu.getPVMax());
+		this.nomArme.setText(this.mainApp.joueurEnJeu.getArme().getNom() + " ("
+				+ this.mainApp.joueurEnJeu.getArme().getDegats() + ")");
+		// mettre à jour les PV
+		this.pvtexte.setText(this.mainApp.joueurEnJeu.getPV() + "/" + this.mainApp.joueurEnJeu.getPVMax());
+		this.vie.setProgress((float) this.mainApp.joueurEnJeu.getPV() / (float) this.mainApp.joueurEnJeu.getPVMax());
+		// mettre à jour la vie de l'armure
+		this.nomArmure.setText(
+				this.mainApp.joueurEnJeu.getArmure().getNom() + " (" + this.mainApp.joueurEnJeu.getArmure().getDefense()
+						+ "/" + this.mainApp.joueurEnJeu.getArmure().getDefenseMax() + ")");
 	}
 
+	//initialise la carte
 	private void setAffichageCarte() {
 		// set du monstre
 		this.nomMonstre.setText("Vous n'étes pas en combat");
@@ -368,11 +428,7 @@ public class ControleurPagePrincipale extends ControleurFX {
 	@FXML
 	public void clickAttaquer() {
 		ecrireDialogue(combatEnCours.continuer());
-		// mettre à jour les PV
-		this.pvtexte.setText(this.mainApp.joueurEnJeu.getPV()+"/"+this.mainApp.joueurEnJeu.getPVMax());
-		this.vie.setProgress((float)this.mainApp.joueurEnJeu.getPV()/(float)this.mainApp.joueurEnJeu.getPVMax());
-		// mettre à jour la vie de l'armure
-		this.nomArmure.setText(this.mainApp.joueurEnJeu.getArmure().getNom()+" ("+this.mainApp.joueurEnJeu.getArmure().getDefense()+"/"+this.mainApp.joueurEnJeu.getArmure().getDefenseMax()+")");		
+
 		// si le combat est terminé activer les boutons de déplacement, desactiver
 		// les boutons de combat
 		// mettre la salle en visité
@@ -388,6 +444,7 @@ public class ControleurPagePrincipale extends ControleurFX {
 			this.nomMonstre.setText("Vous n'étes pas en combat");
 			
 		}
+		setAffichageJoueur();
 	}
 
 	// le joueur fuis le combat
@@ -409,17 +466,6 @@ public class ControleurPagePrincipale extends ControleurFX {
 		Carte carte = this.mainApp.joueurEnJeu.getCarte();
 		Salle[] salles = carte.getSalles();
 		return salles[(colonne * 9) + (ligne)];
-	}
-
-	@FXML
-	public void clicUtiliserObjet() {
-
-		utiliserObjet();
-
-	}
-
-	public void utiliserObjet() {
-
 	}
 
 }

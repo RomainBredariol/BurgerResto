@@ -175,12 +175,19 @@
                <children>
                   <Pane>
                      <children>
-                        <Text layoutX="122.0" layoutY="5.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sac" textAlignment="CENTER" wrappingWidth="36.0" />
+                        <Text layoutX="122.0" layoutY="12.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sac" textAlignment="CENTER" wrappingWidth="36.0" />
                      </children>
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                   </Pane>
+                  <HBox prefHeight="35.0" prefWidth="262.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="35.0" prefWidth="86.0" text="Objet" textAlignment="CENTER" textOverrun="CLIP" />
+                        <Label alignment="CENTER" prefHeight="35.0" prefWidth="86.0" text="Valeur" />
+                        <Label alignment="CENTER" prefHeight="35.0" prefWidth="86.0" text="Action" />
+                     </children>
+                  </HBox>
                   <ScrollPane prefHeight="116.0" prefWidth="280.0">
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="467.0" prefWidth="260.0">
