@@ -22,7 +22,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class ControleurPagePrincipale extends ControleurFX {
@@ -61,7 +60,7 @@ public class ControleurPagePrincipale extends ControleurFX {
 	public void setMainApp(MainApp main) {
 		this.mainApp = main;
 		setAffichageJoueur();
-		setAffichageCarte();
+		refreshCarte();
 		setAffichageSac();
 	}
 
@@ -129,7 +128,7 @@ public class ControleurPagePrincipale extends ControleurFX {
 		default:
 			break;
 		}
-		//met a jour les differents affichage
+		//met a jour les differents affichages
 		setAffichageJoueur();
 		setAffichageSac();
 	}
@@ -170,26 +169,44 @@ public class ControleurPagePrincipale extends ControleurFX {
 						+ "/" + this.mainApp.joueurEnJeu.getArmure().getDefenseMax() + ")");
 	}
 
-	//initialise la carte
-	private void setAffichageCarte() {
-		// set du monstre
-		this.nomMonstre.setText("Vous n'étes pas en combat");
+	
+	public void refreshCarte() {
 		
+		if (this.combatEnCours.estTermine()) {
+			// set des informations relatifs au montre / combat
+			this.nomMonstre.setText("Vous n'étes pas en combat");			
+		} else {
+			Monstre monstre = this.combatEnCours.getMonstre();
+			this.nomMonstre.setText("Combat contre "+monstre.getNom()+" ("+monstre.getPV()+"/"+monstre.getPVMax()+")");
+		}
 		
-		// set de la map
-		for (int colonne = 0; colonne < 9; colonne++) {
-			for (int ligne = 0; ligne < 9; ligne++) {
+		int ligneJoueur = this.mainApp.joueurEnJeu.getEmplacementLigne();
+		int colonneJoueur = this.mainApp.joueurEnJeu.getEmplacementColonne();
+		
+		for (int colonne = 0 ; colonne < 9 ; colonne ++ ) {
+			for (int ligne = 0 ; ligne < 9 ; ligne++ ) {
 				Pane pane = new Pane();
-				ImageView image;
-
+				ImageView image = new ImageView();
+				// définir l'icone de l'image d'entrée
 				if (colonne == 0 && ligne == 0) {
 					image = new ImageView("/Controleur/icon/caseEntre.png");
+				}
+				Salle salle = recupererSalle(colonne, ligne - 1);
+				// si la salle n'est pas déjà visitée alors afficher une case cachée
+				if (!salle.estDejaVisitee()) {
+					image = new ImageView("/Controleur/icon/caseCache.png");					
 				} else {
-					image = new ImageView("/Controleur/icon/caseCache.png");
+					// sinon afficher l'image en fonction du type de la salle
+					switch (salle.getDescription()) {
+					case BOUTIQUE:
+						image = new ImageView("/Controleur/icon/shop.png");
+						break;
+					default:
+						break;
+					}
 				}
 				image.setFitHeight(28);
 				image.setFitWidth(28);
-				System.out.println(this.carte.getScaleX());
 				pane.getChildren().add(image);
 				pane.getChildren().get(0).setLayoutX(10);
 				this.carte.add(pane, colonne, ligne);

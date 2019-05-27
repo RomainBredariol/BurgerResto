@@ -1,7 +1,11 @@
 package Model;
 
-public class Combat {
+import java.io.Serializable;
+
+public class Combat implements Serializable{
 	
+
+	private static final long serialVersionUID = -3374250423179152813L;
 	private int tour;
 	private Joueur joueur;
 	private Monstre monstre;
