@@ -136,7 +136,6 @@ public class ControleurPagePrincipale extends ControleurFX {
 	// écris dans la fenetre de dialogue le texte passé en paramétre
 	public void ecrireDialogue(String texte) {
 		// formater le texte pour qu'il ne dépasse pas la taille
-		System.out.println(texte);
 		int postCurseur = 0;
 		int curseur = 0;
 		int facteur = 1;
@@ -199,31 +198,40 @@ public class ControleurPagePrincipale extends ControleurFX {
 					if (!salle.estDejaVisitee()) {
 						image = new ImageView("/Controleur/icon/caseCache.png");					
 					} else {
+						System.out.println("visitée");
 						// sinon afficher l'image en fonction du type de la salle
 						switch (salle.getDescription()) {
 						case BOUTIQUE:
 							image = new ImageView("/Controleur/icon/shop.png");
 							break;
+						case SALLE:
+							image = new ImageView("/Controleur/icon/case.png");
 						default:
 							break;
 						}
 					}			
 				}
-				System.out.println("ligne joueur : "+ligneJoueur);
-				System.out.println("ligne : "+ligne);
-				System.out.println("Colonene joueur  : "+colonneJoueur);
-				System.out.println("colonne : "+colonne);
-				if (ligneJoueur == ligne && colonneJoueur == colonne) {
-					image = new ImageView("/Controleur/icon/case.png");
-				}
+//				System.out.println("ligne joueur : "+ligneJoueur);
+//				System.out.println("ligne : "+ligne);
+//				System.out.println("Colonene joueur  : "+colonneJoueur);
+//				System.out.println("colonne : "+colonne);
 				image.setFitHeight(28);
 				image.setFitWidth(28);
-				pane.getChildren().add(image);
+				pane.getChildren().add(0,image);
 				pane.getChildren().get(0).setLayoutX(10);
 				this.carte.add(pane, colonne, ligne);
+				if (ligneJoueur == ligne && colonneJoueur == colonne) {
+					image = new ImageView("/Controleur/icon/dot.png");
+					image.setFitWidth(11);
+					image.setFitHeight(12);
+					
+					pane.getChildren().add(1,image);
+					pane.getChildren().get(1).setLayoutX(18);
+					pane.getChildren().get(1).setLayoutX(8);
+				}
 			}
 		}
-		System.out.println("______________________________________");
+//		System.out.println("______________________________________");
 	}
 
 	@FXML
