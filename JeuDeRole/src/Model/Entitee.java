@@ -1,7 +1,11 @@
 package Model;
 
-public abstract class Entitee {
+import java.io.Serializable;
+
+public abstract class Entitee implements Serializable {
 	
+
+	private static final long serialVersionUID = -1680257189971689389L;
 	private String nom;
 	private int pvMax;
 	private int pv; // pvMax du joueur = 1 
@@ -67,6 +71,11 @@ public abstract class Entitee {
 	// augmente les PV max de 1
 	public void augmenterPV() {
 		this.pvMax++;
+	}
+	
+	// depenser de l'or
+	public void depenserOR(int or) {
+		this.or -= or;
 	}
 	
 	

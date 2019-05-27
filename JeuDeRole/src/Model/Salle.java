@@ -1,6 +1,11 @@
 package Model;
 
-public class Salle {
+import java.io.Serializable;
+
+public class Salle implements Serializable {
+
+
+	private static final long serialVersionUID = -7687899640896722361L;
 
 	public enum enumDescription {ARENE, BOUTIQUE, SALLE, SORTIE, MUR};
 	private enumDescription typeSalle;

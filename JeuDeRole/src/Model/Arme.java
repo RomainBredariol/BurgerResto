@@ -9,11 +9,13 @@ public class Arme extends Objet {
 	public Arme(String nom, int valeur,int degats) {
 		super(nom, valeur);
 		this.degats = degats;
+		this.type = type.ARME;
 	}
 	
 	public int getDegats() {
 		return this.degats;
 	}
+	
 
 
 	

@@ -13,6 +13,7 @@ public class Armure extends Objet {
 		this.defenseMax = defenseMax;
 		this.defense = defenseMax;
 		this.estCassee = false;
+		this.type = type.ARMURE;
 	}
 
 	public int getDefense() {

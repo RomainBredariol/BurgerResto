@@ -6,6 +6,7 @@ import MainApp.MainApp;
 import Model.Arme;
 import Model.Armure;
 import Model.Objet;
+import Model.Objet.type;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -84,16 +85,19 @@ public class ControleurPageBoutique extends ControleurFX {
 			boutonVendre.setOnAction(e -> clicVendreObjet(nomObjet.getText()));
 			
 			// bouton Reparer
-			Button boutonReparer= new Button("Reparer");
+			Button boutonReparer= new Button("Reparer (20 or)");
 			boutonReparer.setPrefSize(86, 20);
 			boutonReparer.setAlignment(Pos.CENTER);
-			boutonReparer.setOnAction(e -> clicReparerObjet(nomObjet.getText()));
+			boutonReparer.setOnAction(e -> clicReparerObjet(obj));
 
 			// on ajoute les elements au hbox
 			ligneSac.getChildren().add(nomObjet);
 			ligneSac.getChildren().add(valeurObjet);
 			ligneSac.getChildren().add(boutonVendre);
-			ligneSac.getChildren().add(boutonReparer);
+			// ajouter le bouton réparer seulement pour les armures
+			if (obj.getType() == type.ARMURE) {
+				ligneSac.getChildren().add(boutonReparer);
+			}
 
 			// on ajoute le hbox à la vbox
 			this.sacVbox.getChildren().add(ligneSac);
@@ -136,7 +140,7 @@ public class ControleurPageBoutique extends ControleurFX {
 			Button boutonUtilisation = new Button("Acheter");
 			boutonUtilisation.setPrefSize(86, 20);
 			boutonUtilisation.setAlignment(Pos.CENTER);
-			boutonUtilisation.setOnAction(e -> clicAcheterObjet(nomObjet.getText()));
+			boutonUtilisation.setOnAction(e -> clicAcheterObjet(obj));
 
 			// on ajoute les elements au hbox
 			ligneBoutique.getChildren().add(nomObjet);
@@ -148,12 +152,23 @@ public class ControleurPageBoutique extends ControleurFX {
 		}
 	}
 
-	private void clicAcheterObjet(String text) {
-		
+	private void clicAcheterObjet(Objet obj) {
+		if (this.mainApp.joueurEnJeu.getOR() > obj.getValeur() ) {
+			this.mainApp.joueurEnJeu.ajouterObjetSac(obj);
+			this.mainApp.joueurEnJeu.depenserOR(obj.getValeur());
+			this.setAffichageSac();
+			this.setAffichageJoueur();
+		}
 	}
 	
-	private void clicReparerObjet(String text) {
-		
+	private void clicReparerObjet(Objet obj) {
+		Armure armure = (Armure) obj;
+		if (this.mainApp.joueurEnJeu.getOR() > 20) {
+			armure.reparer();
+			this.mainApp.joueurEnJeu.depenserOR(20);
+			this.setAffichageSac();
+			this.setAffichageJoueur();
+		}
 	}
 	
 	private void clicVendreObjet(String text) {
