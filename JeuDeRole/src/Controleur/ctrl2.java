@@ -22,11 +22,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-public class ControleurPagePrincipale extends ControleurFX {
+public class ctrl2 extends ControleurFX {
 
-	// attributs de javaFX
 	@FXML
 	private Label nomJoueur;
 	@FXML
@@ -52,7 +52,6 @@ public class ControleurPagePrincipale extends ControleurFX {
 	@FXML
 	private Label nomMonstre;
 	
-	// attributs du modele
 	private Combat combatEnCours;
 	private Salle salleEnCours;
 	private enum directionClic {GAUCHE, DROITE, HAUT, BAS};
@@ -62,7 +61,7 @@ public class ControleurPagePrincipale extends ControleurFX {
 	public void setMainApp(MainApp main) {
 		this.mainApp = main;
 		setAffichageJoueur();
-		refreshCarte();
+		setAffichageCarte();
 		setAffichageSac();
 	}
 
@@ -100,7 +99,7 @@ public class ControleurPagePrincipale extends ControleurFX {
 		}
 	}
 
-	// utiliser un objet
+	
 	public void clicUtiliserObjet(String nomObjet) {
 		HashMap<String, Objet> sac = this.mainApp.joueurEnJeu.getSac();
 
@@ -130,7 +129,7 @@ public class ControleurPagePrincipale extends ControleurFX {
 		default:
 			break;
 		}
-		//met a jour les differents affichages
+		//met a jour les differents affichage
 		setAffichageJoueur();
 		setAffichageSac();
 	}
@@ -138,6 +137,7 @@ public class ControleurPagePrincipale extends ControleurFX {
 	// écris dans la fenetre de dialogue le texte passé en paramétre
 	public void ecrireDialogue(String texte) {
 		// formater le texte pour qu'il ne dépasse pas la taille
+		System.out.println(texte);
 		int postCurseur = 0;
 		int curseur = 0;
 		int facteur = 1;
@@ -170,70 +170,88 @@ public class ControleurPagePrincipale extends ControleurFX {
 						+ "/" + this.mainApp.joueurEnJeu.getArmure().getDefenseMax() + ")");
 	}
 
-	// rafraichir la carte du jeu
-	public void refreshCarte() {
-		if (this.combatEnCours != null) {
-			if (this.combatEnCours.estTermine()) {
-				// set des informations relatifs au montre / combat
-				this.nomMonstre.setText("Vous n'étes pas en combat");			
-			} else {
-				Monstre monstre = this.combatEnCours.getMonstre();
-				this.nomMonstre.setText("Combat contre "+monstre.getNom()+" ("+monstre.getPV()+"/"+monstre.getPVMax()+")");
-			}			
-		} else {
-			this.nomMonstre.setText("Vous n'étes pas en combat");	
-		}
+	//initialise la carte
+	private void setAffichageCarte() {
+		// set du monstre
+		this.nomMonstre.setText("Vous n'étes pas en combat");
 		
-		int ligneJoueur = this.mainApp.joueurEnJeu.getEmplacementLigne();
-		int colonneJoueur = this.mainApp.joueurEnJeu.getEmplacementColonne();
 		
-		for (int colonne = 0 ; colonne < 9 ; colonne ++ ) {
-			for (int ligne = 0 ; ligne < 9 ; ligne++ ) {
-				int index = ligne + (colonne * 9) + 1;
-				System.out.println(this.carte.getChildren().get(index).getClass());
+		// set de la map
+		for (int colonne = 0; colonne < 9; colonne++) {
+			for (int ligne = 0; ligne < 9; ligne++) {
 				Pane pane = new Pane();
-				ImageView image = new ImageView();
-				// définir l'icone de l'image d'entrée
+				ImageView image;
+
 				if (colonne == 0 && ligne == 0) {
 					image = new ImageView("/Controleur/icon/caseEntre.png");
 				} else {
-					Salle salle = recupererSalle(colonne, ligne);
-					//si la salle n'est pas déjà visitée alors afficher une case cachée
-					if (!salle.estDejaVisitee()) {
-						image = new ImageView("/Controleur/icon/caseCache.png");					
-					} else {
-						System.out.println("visitée");
-						// sinon afficher l'image en fonction du type de la salle
-						switch (salle.getDescription()) {
-						case BOUTIQUE:
-							image = new ImageView("/Controleur/icon/shop.png");
-							break;
-						case SALLE:
-							image = new ImageView("/Controleur/icon/case.png");
-						default:
-							break;
-						}
-					}			
+					image = new ImageView("/Controleur/icon/caseCache.png");
 				}
-//				System.out.println("ligne joueur : "+ligneJoueur);
-//				System.out.println("ligne : "+ligne);
-//				System.out.println("Colonene joueur  : "+colonneJoueur);
-//				System.out.println("colonne : "+colonne);
 				image.setFitHeight(28);
 				image.setFitWidth(28);
-				pane.getChildren().add(0,image);
+				System.out.println(this.carte.getScaleX());
+				pane.getChildren().add(image);
 				pane.getChildren().get(0).setLayoutX(10);
 				this.carte.add(pane, colonne, ligne);
-				if (ligneJoueur == ligne && colonneJoueur == colonne) {
-					image = new ImageView("/Controleur/icon/dot.png");
-					image.setFitWidth(11);
-					image.setFitHeight(12);
-					
-					pane.getChildren().add(1,image);
-					pane.getChildren().get(1).setLayoutX(18);
-					pane.getChildren().get(1).setLayoutX(8);
-				}
 			}
+		}
+	}
+
+	public void majCarte(int etape) {
+		int ligne = this.mainApp.joueurEnJeu.getEmplacementLigne();
+		int colonne = this.mainApp.joueurEnJeu.getEmplacementColonne();
+
+		int index = ligne + (colonne * 9) + 1;
+
+		switch (etape) {
+		case 1:
+			// Supression image
+			if (index != 1 && index != 10) {
+				Pane pane = (Pane) this.carte.getChildren().get(index);
+				pane.getChildren().remove(1);
+			}
+
+			break;
+		case 2:
+			// Remplacement image par le point
+			if (index != 1) {
+
+				Pane pane = (Pane) this.carte.getChildren().get(index);
+
+				ImageView imageCaseVide = new ImageView("/Controleur/icon/case.png");
+				imageCaseVide.setFitHeight(28);
+				imageCaseVide.setFitWidth(28);
+
+				ImageView dot = new ImageView("/Controleur/icon/dot.png");
+				dot.setFitWidth(11);
+				dot.setFitHeight(12);
+
+				pane.getChildren().remove(0);
+				pane.getChildren().add(0, imageCaseVide);
+				pane.getChildren().get(0).setLayoutX(10);
+
+				pane.getChildren().add(1, dot);
+				pane.getChildren().get(1).setLayoutX(18);
+				pane.getChildren().get(1).setLayoutY(8);
+
+			}
+			break;
+		case 3:
+			// Remplacement image par la boutique
+			Pane pane = (Pane) this.carte.getChildren().get(index);
+
+			ImageView shop = new ImageView("/Controleur/icon/shop.png");
+			shop.setFitHeight(28);
+			shop.setFitWidth(28);
+
+			pane.getChildren().remove(0);
+			pane.getChildren().add(0, shop);
+			pane.getChildren().get(0).setLayoutX(10);
+
+			break;
+		default:
+			System.out.println("Erreur");
+			break;
 		}
 	}
 
@@ -252,13 +270,19 @@ public class ControleurPagePrincipale extends ControleurFX {
 			// récuperer la salle vers lequel le joueur désire aller
 			Salle salle = recupererSalle(colonne, ligne - 1);
 			if (salle.getDescription() != enumDescription.MUR) {
+				majCarte(1);
+
 				this.mainApp.joueurEnJeu.setEmplacementLigne(ligne - 1);
+
 				// Si la salle est une boutique
 				if (salle.getDescription() == enumDescription.BOUTIQUE) {
 					// entre dans la boutique
-					entrerDansBoutique();
+					entrerDansBoutqiue();
+					majCarte(3);
+				} else {
+					majCarte(2);
 				}
-				refreshCarte();
+
 				if (!salle.estDejaVisitee()) {
 					resoudreSalle(salle);
 				}
@@ -281,13 +305,19 @@ public class ControleurPagePrincipale extends ControleurFX {
 			// récuperer la salle vers lequel le joueur désire aller
 			Salle salle = recupererSalle(colonne, ligne + 1);
 			if (salle.getDescription() != enumDescription.MUR) {
+				majCarte(1);
+
 				this.mainApp.joueurEnJeu.setEmplacementLigne(ligne + 1);
+
 				// Si la salle est une boutique
 				if (salle.getDescription() == enumDescription.BOUTIQUE) {
 					// entre dans la boutique
-					entrerDansBoutique();
+					entrerDansBoutqiue();
+					majCarte(3);
+				} else {
+					majCarte(2);
 				}
-				refreshCarte();
+
 				if (!salle.estDejaVisitee()) {
 					resoudreSalle(salle);
 				}
@@ -310,13 +340,19 @@ public class ControleurPagePrincipale extends ControleurFX {
 			// récuperer la salle vers lequel le joueur désire aller
 			Salle salle = recupererSalle(colonne - 1, ligne);
 			if (salle.getDescription() != enumDescription.MUR) {
+				majCarte(1);
+
 				this.mainApp.joueurEnJeu.setEmplacementColonne(colonne - 1);
+
 				// Si la salle est une boutique
 				if (salle.getDescription() == enumDescription.BOUTIQUE) {
 					// entre dans la boutique
-					entrerDansBoutique();
+					entrerDansBoutqiue();
+					majCarte(3);
+				} else {
+					majCarte(2);
 				}
-				refreshCarte();
+
 				if (!salle.estDejaVisitee()) {
 					resoudreSalle(salle);
 				}
@@ -339,13 +375,19 @@ public class ControleurPagePrincipale extends ControleurFX {
 			// récuperer la salle vers lequel le joueur désire aller
 			Salle salle = recupererSalle(colonne + 1, ligne);
 			if (salle.getDescription() != enumDescription.MUR) {
+				majCarte(1);
+
 				this.mainApp.joueurEnJeu.setEmplacementColonne(colonne + 1);
+
 				// Si la salle est une boutique
 				if (salle.getDescription() == enumDescription.BOUTIQUE) {
 					// entre dans la boutique
-					entrerDansBoutique();
+					entrerDansBoutqiue();
+					majCarte(3);
+				} else {
+					majCarte(2);
 				}
-				refreshCarte();
+
 				if (!salle.estDejaVisitee()) {
 					resoudreSalle(salle);
 				}
@@ -353,7 +395,7 @@ public class ControleurPagePrincipale extends ControleurFX {
 		}
 	}
 
-	private void entrerDansBoutique() {
+	private void entrerDansBoutqiue() {
 		this.mainApp.showPagePopUp("entrerBoutique");
 	}
 
