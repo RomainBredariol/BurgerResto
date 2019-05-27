@@ -27,6 +27,10 @@ public abstract class Entitee {
 		return this.pvMax;
 	}
 	
+	public void addOR(int or) {
+		this.or += or;
+	}
+	
 	public int getOR() {
 		return this.or;
 	}
@@ -58,6 +62,11 @@ public abstract class Entitee {
 	// soigne l'entiée jusqu'a son nombre de point de vie max
 	public void soigner() {
 		this.pv = this.pvMax;
+	}
+	
+	// augmente les PV max de 1
+	public void augmenterPV() {
+		this.pvMax++;
 	}
 	
 	

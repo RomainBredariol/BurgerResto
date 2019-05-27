@@ -99,5 +99,4 @@ public class Joueur extends Entitee {
 	public Carte getCarte() {
 		return carteEnCours;
 	}
-
 }

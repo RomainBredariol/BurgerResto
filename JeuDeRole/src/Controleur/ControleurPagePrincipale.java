@@ -8,6 +8,7 @@ import Model.Arme;
 import Model.Armure;
 import Model.Carte;
 import Model.Combat;
+import Model.Monstre;
 import Model.Objet;
 import Model.Salle;
 import Model.Salle.enumDescription;
@@ -53,7 +54,6 @@ public class ControleurPagePrincipale extends ControleurFX {
 	
 	private Combat combatEnCours;
 	private Salle salleEnCours;
-	private String logsDialogue = "";
 	private enum directionClic {GAUCHE, DROITE, HAUT, BAS};
 	private directionClic dernierClic;
 
@@ -175,6 +175,7 @@ public class ControleurPagePrincipale extends ControleurFX {
 		// set du monstre
 		this.nomMonstre.setText("Vous n'étes pas en combat");
 		
+		
 		// set de la map
 		for (int colonne = 0; colonne < 9; colonne++) {
 			for (int ligne = 0; ligne < 9; ligne++) {
@@ -186,10 +187,9 @@ public class ControleurPagePrincipale extends ControleurFX {
 				} else {
 					image = new ImageView("/Controleur/icon/caseCache.png");
 				}
-
 				image.setFitHeight(28);
 				image.setFitWidth(28);
-
+				System.out.println(this.carte.getScaleX());
 				pane.getChildren().add(image);
 				pane.getChildren().get(0).setLayoutX(10);
 				this.carte.add(pane, colonne, ligne);
@@ -415,7 +415,7 @@ public class ControleurPagePrincipale extends ControleurFX {
 			Arene arene = (Arene) salle;
 			combatEnCours = new Combat(this.mainApp.joueurEnJeu, arene.getMonstre());
 			// placer le nom du monstre 
-			this.nomMonstre.setText("Combat contre "+arene.getMonstre().getNom());
+			this.nomMonstre.setText("Combat contre "+arene.getMonstre().getNom()+" ("+arene.getMonstre().getPV()+"/"+arene.getMonstre().getPVMax()+")");
 			// rendre accessible les bouton d'attaque et de fuite
 			boutonAttaquer.setDisable(false);
 			boutonFuir.setDisable(false);
@@ -434,6 +434,9 @@ public class ControleurPagePrincipale extends ControleurFX {
 	@FXML
 	public void clickAttaquer() {
 		ecrireDialogue(combatEnCours.continuer());
+		// afficher les pv du monstre
+		Monstre monstre = this.combatEnCours.getMonstre();
+		this.nomMonstre.setText("Combat contre "+monstre.getNom()+" ("+monstre.getPV()+"/"+monstre.getPVMax()+")");
 
 		// si le combat est terminé activer les boutons de déplacement, desactiver
 		// les boutons de combat
@@ -457,6 +460,8 @@ public class ControleurPagePrincipale extends ControleurFX {
 	@FXML
 	public void clickFuir() {
 		ecrireDialogue(combatEnCours.fuir());
+		// soigner le monstre
+		this.combatEnCours.getMonstre().soigner();
 		// activer les boutons de déplacement, desactiver les boutons de combat
 		boutonAttaquer.setDisable(true);
 		boutonFuir.setDisable(true);

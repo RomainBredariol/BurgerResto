@@ -41,11 +41,29 @@ public class Combat {
 		if (!this.monstre.estVivant() ) {
 			this.estTermine = true;
 			message += ", Vous terassez "+this.monstre.getNom()+", Victoire !!";
+			// ajout du trésor  et de l'or dans le sac du joueur
+			message += " Vous ramassez "+this.monstre.getOR()+" pièces d'or.";
+			this.joueur.addOR(this.monstre.getOR());
+			if (this.monstre.getTresor() != null) {
+				message += "Vous trouvez également un "+this.monstre.getTresor().getNom();
+				this.joueur.ajouterObjetSac(this.monstre.getTresor());
+			}
+			// ajouter 1 PV supplémentaire au joueur et le soigne
+			this.joueur.augmenterPV();
+			this.joueur.soigner();
 		}
 		this.tour++;
 		return message;
 	}
 	
+	public Joueur getJoueur() {
+		return joueur;
+	}
+
+	public Monstre getMonstre() {
+		return monstre;
+	}
+
 	// fuir permet de terminer un combat, les monstres sont soignés complétement
 	public String fuir() {
 		this.estTermine = true;
