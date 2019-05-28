@@ -35,7 +35,7 @@ public class MainApp extends Application {
 			this.page.put("erreurSaisieNomJoueur", "/Controleur/page_erreurSaisieNomJoueur.fxml");
 			this.page.put("entrerBoutique", "/Controleur/page_entrerBoutique.fxml");
 			this.page.put("boutique", "/Controleur/page_boutique.fxml");
-			this.page.put("gameover", "Controleur/gameover.fxml");
+			this.page.put("gameover", "/Controleur/gameover.fxml");
 			
 			showPage("connexion");	
 
