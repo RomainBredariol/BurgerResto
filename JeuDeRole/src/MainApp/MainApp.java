@@ -67,6 +67,7 @@ public class MainApp extends Application {
 					break;
 				case "gameover":
 					controleur = new ControleurGameOver();
+					break;
 				case "about":
 					controleur = new ControleurPageAbout();
 					break;
