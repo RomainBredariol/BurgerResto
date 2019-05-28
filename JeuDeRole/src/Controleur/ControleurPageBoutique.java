@@ -81,6 +81,7 @@ public class ControleurPageBoutique extends ControleurFX {
 				if (armure.estEquipe()) {
 					nom += " équipé";
 				}
+				break;
 			case OBJET:
 				System.out.println("test");
 				nom += " (soigne "+(obj.getValeur()/2)+" PV)";
@@ -90,7 +91,7 @@ public class ControleurPageBoutique extends ControleurFX {
 			}
 			
 			Label nomObjet = new Label(nom);
-			nomObjet.setPrefSize(230, 20);
+			nomObjet.setPrefSize(240, 20);
 			nomObjet.setAlignment(Pos.CENTER);
 
 			// sa valeur
@@ -120,6 +121,10 @@ public class ControleurPageBoutique extends ControleurFX {
 			// ajouter le bouton réparer seulement pour les armures
 			if (obj.getType() == type.ARMURE) {
 				ligneSac.getChildren().add(boutonReparer);
+				Armure armure = (Armure)obj;
+				if (armure.getDefense() == armure.getDefenseMax()) {
+					boutonReparer.setDisable(true);
+				}
 			}
 
 			// on ajoute le hbox à la vbox
@@ -159,6 +164,11 @@ public class ControleurPageBoutique extends ControleurFX {
 			case ARMURE:
 				Armure armure = (Armure)obj;
 				nom += " (armure "+armure.getDefenseMax()+" défense)";
+				break;
+			case OBJET:
+				System.out.println("test");
+				nom += " (soigne "+(obj.getValeur()/2)+" PV)";
+				break;
 			default:
 				break;
 			}
@@ -180,6 +190,9 @@ public class ControleurPageBoutique extends ControleurFX {
 			// on ajoute les elements au hbox
 			ligneBoutique.getChildren().add(nomObjet);
 			ligneBoutique.getChildren().add(valeurObjet);
+			if (obj.getValeur() > this.mainApp.joueurEnJeu.getOR()) {
+				boutonUtilisation.setDisable(true);
+			}
 			ligneBoutique.getChildren().add(boutonUtilisation);
 
 			// on ajoute le hbox à la vbox
