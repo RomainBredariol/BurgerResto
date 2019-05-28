@@ -26,30 +26,30 @@
             <Button layoutY="-1.0" mnemonicParsing="false" onAction="#retourAuJeu" prefHeight="49.0" prefWidth="116.0" style="-fx-background-color: #2E9AFE;" text="Retour Au Jeu" textFill="WHITE" />
          </children>
       </Pane>
-      <Pane layoutX="29.0" layoutY="349.0" prefHeight="172.0" prefWidth="340.0">
+      <Pane layoutX="29.0" layoutY="349.0" prefHeight="172.0" prefWidth="726.0">
          <children>
-            <VBox prefHeight="245.0" prefWidth="340.0">
+            <VBox prefHeight="245.0" prefWidth="726.0">
                <children>
                   <Pane>
                      <children>
-                        <Text layoutX="152.0" layoutY="12.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sac" textAlignment="CENTER" wrappingWidth="36.0" />
+                        <Text layoutX="345.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sac" textAlignment="CENTER" wrappingWidth="36.0" />
                      </children>
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                   </Pane>
-                  <HBox prefHeight="35.0" prefWidth="262.0">
+                  <HBox prefHeight="39.0" prefWidth="726.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="35.0" prefWidth="77.0" text="Objet" textAlignment="CENTER" textOverrun="CLIP" />
-                        <Label alignment="CENTER" prefHeight="35.0" prefWidth="83.0" text="Valeur" />
-                        <Label alignment="CENTER" prefHeight="35.0" prefWidth="164.0" text="Action" />
+                        <Label alignment="CENTER" prefHeight="35.0" prefWidth="190.0" text="Objet" textAlignment="CENTER" textOverrun="CLIP" />
+                        <Label alignment="CENTER" prefHeight="35.0" prefWidth="111.0" text="Valeur" />
+                        <Label alignment="CENTER" prefHeight="33.0" prefWidth="415.0" text="Action" />
                      </children>
                   </HBox>
                   <ScrollPane prefHeight="194.0" prefWidth="275.0">
                      <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="467.0" prefWidth="322.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="520.0" prefWidth="706.0">
                            <children>
-                              <VBox fx:id="sacVbox" prefHeight="445.0" prefWidth="321.0" />
+                              <VBox fx:id="sacVbox" prefHeight="445.0" prefWidth="706.0" />
                            </children>
                         </AnchorPane>
                      </content>
@@ -58,9 +58,9 @@
             </VBox>
          </children>
       </Pane>
-      <Pane layoutX="461.0" layoutY="349.0" prefHeight="172.0" prefWidth="286.0">
+      <Pane layoutX="344.0" layoutY="87.0" prefHeight="172.0" prefWidth="413.0">
          <children>
-            <VBox prefHeight="245.0" prefWidth="286.0">
+            <VBox prefHeight="245.0" prefWidth="413.0">
                <children>
                   <Pane>
                      <children>
@@ -79,9 +79,9 @@
                   </HBox>
                   <ScrollPane prefHeight="194.0" prefWidth="275.0">
                      <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="467.0" prefWidth="320.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="198.0" prefWidth="394.0">
                            <children>
-                              <VBox fx:id="boutiqueVbox" prefHeight="445.0" prefWidth="321.0" />
+                              <VBox fx:id="boutiqueVbox" prefHeight="208.0" prefWidth="376.0" />
                            </children>
                         </AnchorPane>
                      </content>

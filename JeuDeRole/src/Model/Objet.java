@@ -10,6 +10,7 @@ public class Objet implements Serializable{
 	private int valeur;
 	public enum type {ARME, ARMURE, OBJET};
 	protected type type;
+	protected boolean estEquipee;
 	
 	// un objet est définie par son nom et sa valeur marchande en or pour son achat
 	// ou sa revente
@@ -17,6 +18,19 @@ public class Objet implements Serializable{
 		this.nom = nom;
 		this .valeur = valeur;
 		this.type = type.OBJET;
+		this.estEquipee = false;
+	}
+	
+	public boolean estEquipe() {
+		return this.estEquipee;
+	}
+	// equiper l'objet
+	public void equiper() {
+		this.estEquipee = true;
+	}
+	// desequiper l'objet
+	public void desequiper() {
+		this.estEquipee = false;
 	}
 	
 	public String getNom() {

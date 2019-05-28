@@ -1,5 +1,10 @@
 package Controleur;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
 import MainApp.MainApp;
@@ -8,8 +13,10 @@ import Model.Arme;
 import Model.Armure;
 import Model.Carte;
 import Model.Combat;
+import Model.Joueur;
 import Model.Monstre;
 import Model.Objet;
+import Model.Objet.type;
 import Model.Salle;
 import Model.Salle.enumDescription;
 import javafx.fxml.FXML;
@@ -51,6 +58,11 @@ public class ControleurPagePrincipale extends ControleurFX {
 	private Label pvtexte;
 	@FXML
 	private Label nomMonstre;
+	@FXML
+	private Button sauvegarder;
+	@FXML
+	private Button charger;
+	
 	
 	// attributs du modele
 	private Combat combatEnCours;
@@ -85,7 +97,13 @@ public class ControleurPagePrincipale extends ControleurFX {
 			valeurObjet.setAlignment(Pos.CENTER);
 
 			// bouton utiliser
-			Button boutonUtilisation = new Button("Utiliser");
+			String texteBouton;
+			if (obj.getType() == type.ARME || obj.getType() == type.ARMURE) {
+				texteBouton = "Equiper";
+			} else {
+				texteBouton = "Utiliser";
+			}
+			Button boutonUtilisation = new Button(texteBouton);
 			boutonUtilisation.setPrefSize(86, 20);
 			boutonUtilisation.setAlignment(Pos.CENTER);
 			boutonUtilisation.setOnAction(e -> clicUtiliserObjet(nomObjet.getText()));
@@ -111,12 +129,18 @@ public class ControleurPagePrincipale extends ControleurFX {
 	public void utiliserObjet(Objet obj) {
 		switch (obj.getClass().getSimpleName()) {
 		case "Arme":
+			// desequiper l'ancienne arme
+			this.mainApp.joueurEnJeu.getArme().desequiper();
 			//equipe l'arme et supprime l'objet du sac
+			obj.equiper();
 			this.mainApp.joueurEnJeu.setArme((Arme) obj);
 			this.mainApp.joueurEnJeu.supprimerObjetSac(obj);
 			break;
 		case "Armure":
+			// desequiper l'ancienne armure
+			this.mainApp.joueurEnJeu.getArmure().desequiper();
 			//equipe l'armure et supprime l'objet du sac
+			obj.equiper();
 			this.mainApp.joueurEnJeu.setArmure((Armure) obj);
 			this.mainApp.joueurEnJeu.supprimerObjetSac(obj);
 			break;
@@ -143,7 +167,7 @@ public class ControleurPagePrincipale extends ControleurFX {
 		int facteur = 1;
 		while (texte.indexOf(" ",curseur+1) >= 0) {
 			curseur = texte.indexOf(" ",curseur+1);
-			if (curseur > 60 * facteur) {
+			if (curseur > 59 * facteur) {
 				texte = texte.substring(0, postCurseur)+"\n-"+texte.substring(postCurseur,texte.length());
 				facteur++;
 			}
@@ -203,7 +227,6 @@ public class ControleurPagePrincipale extends ControleurFX {
 					if (!salle.estDejaVisitee()) {
 						image = new ImageView("/Controleur/icon/caseCache.png");					
 					} else {
-						System.out.println("visitée : "+salle.getDescription());
 						// sinon afficher l'image en fonction du type de la salle
 						switch (salle.getDescription()) {
 						case BOUTIQUE:
@@ -242,8 +265,8 @@ public class ControleurPagePrincipale extends ControleurFX {
 					image.setFitHeight(12);
 					
 					pane.getChildren().add(1,image);
+					pane.getChildren().get(1).setLayoutY(9);
 					pane.getChildren().get(1).setLayoutX(18);
-					pane.getChildren().get(1).setLayoutX(8);
 				}
 			}
 		}
@@ -373,6 +396,54 @@ public class ControleurPagePrincipale extends ControleurFX {
 		refreshCarte();
 	}
 
+	// sauvegarder l'état du syteme
+	public void sauvegarder() {
+		// Serialization  
+		String filename = "save";
+        try
+        {    
+            //Saving of object in a file 
+            FileOutputStream file = new FileOutputStream(filename); 
+            ObjectOutputStream out = new ObjectOutputStream(file); 
+            // Method for serialization of object 
+            out.writeObject(this.mainApp.joueurEnJeu); 
+            out.close(); 
+            file.close(); 
+        } 
+        catch(IOException ex) { 
+            System.out.println("IOException is caught"); 
+        }
+        ecrireDialogue("La partie viens d'être sauvegardé !");
+	}
+	
+	// charger l'état du systeme 
+	public void charger() {
+		
+		// Deserialization 
+		String filename = "save";
+        try
+        {    
+            // Reading the object from a file 
+            FileInputStream file = new FileInputStream(filename); 
+            ObjectInputStream in = new ObjectInputStream(file); 
+              
+            // Method for deserialization of object 
+            this.mainApp.joueurEnJeu = (Joueur)in.readObject();
+            in.close(); 
+            file.close(); 
+        } 
+        catch(IOException ex) { 
+            System.out.println("IOException is caught"); 
+        } 
+        catch(ClassNotFoundException ex) { 
+            System.out.println("ClassNotFoundException is caught"); 
+        }
+        setAffichageJoueur();
+        setAffichageSac();
+        refreshCarte();
+        ecrireDialogue("La partie vien d'être chargée !");
+	}
+	
 	// entrer dans la boutique
 	private void entrerDansBoutique() {
 		this.mainApp.showPagePopUp("entrerBoutique");

@@ -159,7 +159,7 @@
       </Pane>
       <Pane layoutX="338.0" layoutY="397.0" prefHeight="211.0" prefWidth="466.0">
          <children>
-            <TextArea fx:id="dialogue" prefHeight="238.0" prefWidth="466.0" />
+            <TextArea fx:id="dialogue" editable="false" prefHeight="222.0" prefWidth="466.0" />
          </children>
       </Pane>
       <Pane layoutX="29.0" layoutY="339.0" prefHeight="172.0" prefWidth="280.0">

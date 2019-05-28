@@ -1,9 +1,11 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class Joueur extends Entitee {
+public class Joueur extends Entitee implements Serializable {
 	
+	private static final long serialVersionUID = 9208955470081047608L;
 	private HashMap<String, Integer> emplacement;
 	private Armure armure;
 	private Arme arme;
@@ -25,10 +27,12 @@ public class Joueur extends Entitee {
 		this.lvl2 = new Carte(2);
 		this.lvl3 = new Carte(3);
 		
-		// TODO arme et armure et carte
+		// armure, armure et carte
 		this.carteEnCours = lvl1;
 		this.arme = new Arme("une feuille", 0, 5);
+		this.arme.equiper();
 		this.armure = new Armure("un manteau", 0, 5);
+		this.armure.equiper();
 		
 	}
  	

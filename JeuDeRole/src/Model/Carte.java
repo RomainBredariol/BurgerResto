@@ -1,11 +1,13 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import Model.Salle.enumDescription;
 
-public class Carte {
+public class Carte implements Serializable{
 	
+	private static final long serialVersionUID = -5661129914520234336L;
 	private Salle[] salles;
 	
 	public Carte(int lvl) {

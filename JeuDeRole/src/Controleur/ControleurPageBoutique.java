@@ -8,6 +8,7 @@ import Model.Armure;
 import Model.Objet;
 import Model.Objet.type;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -37,10 +38,9 @@ public class ControleurPageBoutique extends ControleurFX {
 	private static HashMap<String, Objet> boutique;
 	static {
 		boutique = new HashMap<String, Objet>();
-		boutique.put("Eau", new Objet("Eau", 2));
-		boutique.put("Pain", new Objet("Pain", 5));
-		boutique.put("Potion", new Objet("Potion", 10));
-		boutique.put("Epee", new Arme("Epee", 5, 5));
+		boutique.put("Eau", new Objet("Eau", 10));
+		boutique.put("Pain", new Objet("Pain", 15));
+		boutique.put("Potion", new Objet("Potion", 20));
 		boutique.put("Bouclier", new Armure("Bouclier", 10, 10));
 		boutique.put("Cable RJ45", new Arme("Cable RJ45", 10, 10));
 		boutique.put("Switch Cisco", new Armure("Switch Cisco", 20, 20));
@@ -64,36 +64,61 @@ public class ControleurPageBoutique extends ControleurFX {
 	private void setAffichageSac() {
 		this.sacVbox.getChildren().clear();
 		HashMap<String, Objet> sac = this.mainApp.joueurEnJeu.getSac();
-
+		// ajouter l'armure et l'épée du heros
+		sac.put(this.mainApp.joueurEnJeu.getArme().getNom(), this.mainApp.joueurEnJeu.getArme());
+		sac.put(this.mainApp.joueurEnJeu.getArmure().getNom(), this.mainApp.joueurEnJeu.getArmure());
 		for (Objet obj : sac.values()) {
 			HBox ligneSac = new HBox();
 
 			// nom de l'objet
-			Label nomObjet = new Label(obj.getNom());
-			nomObjet.setPrefSize(86, 20);
+			String nom = obj.getNom();
+			switch (obj.getType()) {
+			case ARME:
+				Arme arme = (Arme)obj;
+				nom += " (arme "+arme.getDegats()+" dégats)";
+				if (arme.estEquipe()) {
+					nom += " équipé";
+				}
+				break;
+			case ARMURE:
+				Armure armure = (Armure)obj;
+				nom += " (armure "+armure.getDefense()+"/"+armure.getDefenseMax()+")";
+				if (armure.estEquipe()) {
+					nom += " équipé";
+				}
+
+			default:
+				break;
+			}
+			
+			Label nomObjet = new Label(nom);
+			nomObjet.setPrefSize(230, 20);
 			nomObjet.setAlignment(Pos.CENTER);
 
 			// sa valeur
 			Label valeurObjet = new Label(String.valueOf(obj.getValeur()));
-			valeurObjet.setPrefSize(86, 20);
+			valeurObjet.setPrefSize(50, 20);
 			valeurObjet.setAlignment(Pos.CENTER);
 
 			// bouton Vendre
 			Button boutonVendre = new Button("Vendre");
-			boutonVendre.setPrefSize(86, 20);
+			boutonVendre.setPrefSize(100, 20);
 			boutonVendre.setAlignment(Pos.CENTER);
-			boutonVendre.setOnAction(e -> clicVendreObjet(nomObjet.getText()));
+			boutonVendre.setOnAction(e -> clicVendreObjet(obj));
 			
 			// bouton Reparer
 			Button boutonReparer= new Button("Reparer (20 or)");
-			boutonReparer.setPrefSize(86, 20);
+			boutonReparer.setPrefSize(150, 20);
 			boutonReparer.setAlignment(Pos.CENTER);
 			boutonReparer.setOnAction(e -> clicReparerObjet(obj));
 
 			// on ajoute les elements au hbox
 			ligneSac.getChildren().add(nomObjet);
 			ligneSac.getChildren().add(valeurObjet);
-			ligneSac.getChildren().add(boutonVendre);
+			// ajouter le bouton vendre si l'objet n'est pas équipé
+			if (!obj.estEquipe()) {
+				ligneSac.getChildren().add(boutonVendre);
+			}
 			// ajouter le bouton réparer seulement pour les armures
 			if (obj.getType() == type.ARMURE) {
 				ligneSac.getChildren().add(boutonReparer);
@@ -171,8 +196,11 @@ public class ControleurPageBoutique extends ControleurFX {
 		}
 	}
 	
-	private void clicVendreObjet(String text) {
-	
+	private void clicVendreObjet(Objet obj) {
+		this.mainApp.joueurEnJeu.supprimerObjetSac(obj);
+		this.mainApp.joueurEnJeu.addOR(obj.getValeur());
+		this.setAffichageSac();
+		this.setAffichageJoueur();
 	}
 
 	

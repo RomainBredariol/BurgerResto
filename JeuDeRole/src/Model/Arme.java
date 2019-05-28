@@ -15,10 +15,4 @@ public class Arme extends Objet {
 	public int getDegats() {
 		return this.degats;
 	}
-	
-
-
-	
-	
-
 }

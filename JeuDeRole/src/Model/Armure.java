@@ -44,5 +44,7 @@ public class Armure extends Objet {
 	public boolean estCassee() {
 		return this.estCassee;
 	}
+	
+	
 
 }
