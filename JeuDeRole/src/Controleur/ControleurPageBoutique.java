@@ -38,12 +38,10 @@ public class ControleurPageBoutique extends ControleurFX {
 	private static HashMap<String, Objet> boutique;
 	static {
 		boutique = new HashMap<String, Objet>();
-		boutique.put("Eau", new Objet("Eau", 10));
-		boutique.put("Pain", new Objet("Pain", 15));
-		boutique.put("Potion", new Objet("Potion", 20));
-		boutique.put("Bouclier", new Armure("Bouclier", 10, 10));
-		boutique.put("Cable RJ45", new Arme("Cable RJ45", 10, 10));
-		boutique.put("Switch Cisco", new Armure("Switch Cisco", 20, 20));
+		boutique.put("Coca", new Objet("Coca", 50));
+		boutique.put("Classeur", new Armure("Classeur", 100, 10));
+		boutique.put("Cable RJ45", new Arme("Cable RJ45", 600, 10));
+		boutique.put("Switch Cisco", new Armure("Switch Cisco", 300, 20));
 
 	}
 
@@ -64,9 +62,6 @@ public class ControleurPageBoutique extends ControleurFX {
 	private void setAffichageSac() {
 		this.sacVbox.getChildren().clear();
 		HashMap<String, Objet> sac = this.mainApp.joueurEnJeu.getSac();
-		// ajouter l'armure et l'épée du heros
-		sac.put(this.mainApp.joueurEnJeu.getArme().getNom(), this.mainApp.joueurEnJeu.getArme());
-		sac.put(this.mainApp.joueurEnJeu.getArmure().getNom(), this.mainApp.joueurEnJeu.getArmure());
 		for (Objet obj : sac.values()) {
 			HBox ligneSac = new HBox();
 
@@ -86,7 +81,10 @@ public class ControleurPageBoutique extends ControleurFX {
 				if (armure.estEquipe()) {
 					nom += " équipé";
 				}
-
+			case OBJET:
+				System.out.println("test");
+				nom += " (soigne "+(obj.getValeur()/2)+" PV)";
+				break;
 			default:
 				break;
 			}
@@ -152,18 +150,30 @@ public class ControleurPageBoutique extends ControleurFX {
 			HBox ligneBoutique = new HBox();
 
 			// nom de l'objet
-			Label nomObjet = new Label(obj.getNom());
-			nomObjet.setPrefSize(86, 20);
+			String nom = obj.getNom();
+			switch (obj.getType()) {
+			case ARME:
+				Arme arme =(Arme)obj;
+				nom += " (arme "+arme.getDegats()+" dégats)";
+				break;
+			case ARMURE:
+				Armure armure = (Armure)obj;
+				nom += " (armure "+armure.getDefenseMax()+" défense)";
+			default:
+				break;
+			}
+			Label nomObjet = new Label(nom);
+			nomObjet.setPrefSize(240, 20);
 			nomObjet.setAlignment(Pos.CENTER);
 
 			// sa valeur
 			Label valeurObjet = new Label(String.valueOf(obj.getValeur()));
-			valeurObjet.setPrefSize(86, 20);
+			valeurObjet.setPrefSize(60, 20);
 			valeurObjet.setAlignment(Pos.CENTER);
 
 			// bouton utiliser
 			Button boutonUtilisation = new Button("Acheter");
-			boutonUtilisation.setPrefSize(86, 20);
+			boutonUtilisation.setPrefSize(70, 20);
 			boutonUtilisation.setAlignment(Pos.CENTER);
 			boutonUtilisation.setOnAction(e -> clicAcheterObjet(obj));
 
@@ -177,6 +187,7 @@ public class ControleurPageBoutique extends ControleurFX {
 		}
 	}
 
+	// acheter un objet
 	private void clicAcheterObjet(Objet obj) {
 		if (this.mainApp.joueurEnJeu.getOR() > obj.getValeur() ) {
 			this.mainApp.joueurEnJeu.ajouterObjetSac(obj);
@@ -186,6 +197,7 @@ public class ControleurPageBoutique extends ControleurFX {
 		}
 	}
 	
+	// réparer une armure
 	private void clicReparerObjet(Objet obj) {
 		Armure armure = (Armure) obj;
 		if (this.mainApp.joueurEnJeu.getOR() > 20) {
@@ -196,6 +208,7 @@ public class ControleurPageBoutique extends ControleurFX {
 		}
 	}
 	
+	// vendre un objet
 	private void clicVendreObjet(Objet obj) {
 		this.mainApp.joueurEnJeu.supprimerObjetSac(obj);
 		this.mainApp.joueurEnJeu.addOR(obj.getValeur());

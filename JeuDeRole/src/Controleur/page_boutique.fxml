@@ -18,7 +18,7 @@
    <children>
       <Pane prefHeight="49.0" prefWidth="822.0" style="-fx-background-color: #0174DF;">
          <children>
-            <Label fx:id="menu" layoutX="123.0" layoutY="12.0" onMouseClicked="#retourPageConnexion" prefHeight="26.0" prefWidth="245.0" text="Super Tower Rise Invasion" textFill="WHITE">
+            <Label fx:id="menu" layoutX="123.0" layoutY="12.0" onMouseClicked="#retourPageConnexion" prefHeight="26.0" prefWidth="274.0" text="Super Tower Rise Invasion" textFill="WHITE">
                <font>
                   <Font name="Ubuntu Light" size="20.0" />
                </font>
@@ -72,9 +72,9 @@
                   </Pane>
                   <HBox prefHeight="35.0" prefWidth="262.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="35.0" prefWidth="110.0" text="Objet" textAlignment="CENTER" textOverrun="CLIP" />
-                        <Label alignment="CENTER" prefHeight="35.0" prefWidth="110.0" text="Valeur" />
-                        <Label alignment="CENTER" prefHeight="35.0" prefWidth="110.0" text="Action" />
+                        <Label alignment="CENTER" prefHeight="35.0" prefWidth="232.0" text="Objet" textAlignment="CENTER" textOverrun="CLIP" />
+                        <Label alignment="CENTER" prefHeight="35.0" prefWidth="62.0" text="Valeur" />
+                        <Label alignment="CENTER" prefHeight="35.0" prefWidth="85.0" text="Action" />
                      </children>
                   </HBox>
                   <ScrollPane prefHeight="194.0" prefWidth="275.0">

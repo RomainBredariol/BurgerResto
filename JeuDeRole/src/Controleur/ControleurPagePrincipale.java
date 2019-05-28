@@ -106,23 +106,18 @@ public class ControleurPagePrincipale extends ControleurFX {
 			Button boutonUtilisation = new Button(texteBouton);
 			boutonUtilisation.setPrefSize(86, 20);
 			boutonUtilisation.setAlignment(Pos.CENTER);
-			boutonUtilisation.setOnAction(e -> clicUtiliserObjet(nomObjet.getText()));
+			boutonUtilisation.setOnAction(e -> utiliserObjet(obj));
 
 			// on ajoute les elements au hbox
 			ligneSac.getChildren().add(nomObjet);
 			ligneSac.getChildren().add(valeurObjet);
-			ligneSac.getChildren().add(boutonUtilisation);
+			if (!obj.estEquipe()) {
+				ligneSac.getChildren().add(boutonUtilisation);
+			}
 
 			// on ajoute le hbox à la vbox
 			this.sacVbox.getChildren().add(ligneSac);
 		}
-	}
-
-	// utiliser un objet
-	public void clicUtiliserObjet(String nomObjet) {
-		HashMap<String, Objet> sac = this.mainApp.joueurEnJeu.getSac();
-
-		utiliserObjet(sac.get(nomObjet));
 	}
 
 	//utilise un objet contenu dans le sac
@@ -134,7 +129,6 @@ public class ControleurPagePrincipale extends ControleurFX {
 			//equipe l'arme et supprime l'objet du sac
 			obj.equiper();
 			this.mainApp.joueurEnJeu.setArme((Arme) obj);
-			this.mainApp.joueurEnJeu.supprimerObjetSac(obj);
 			break;
 		case "Armure":
 			// desequiper l'ancienne armure
@@ -142,14 +136,11 @@ public class ControleurPagePrincipale extends ControleurFX {
 			//equipe l'armure et supprime l'objet du sac
 			obj.equiper();
 			this.mainApp.joueurEnJeu.setArmure((Armure) obj);
-			this.mainApp.joueurEnJeu.supprimerObjetSac(obj);
 			break;
 		case "Objet":
 			//consomme l'objet
-			if((this.mainApp.joueurEnJeu.getPV()+obj.getValeur()) <= 20 ) {
-				this.mainApp.joueurEnJeu.potion(obj.getValeur());
+				this.mainApp.joueurEnJeu.potion(obj.getValeur()/2);
 				this.mainApp.joueurEnJeu.supprimerObjetSac(obj);
-			}
 			break;
 		default:
 			break;

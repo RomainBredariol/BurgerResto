@@ -22,11 +22,13 @@
    <children>
       <Pane prefHeight="49.0" prefWidth="822.0" style="-fx-background-color: #0174DF;">
          <children>
-            <Label fx:id="menu" layoutX="14.0" layoutY="12.0" onMouseClicked="#retourPageConnexion" prefHeight="26.0" prefWidth="245.0" text="Super Tower Rise Invasion" textFill="WHITE">
+            <Label fx:id="menu" layoutX="14.0" layoutY="12.0" onMouseClicked="#retourPageConnexion" prefHeight="26.0" prefWidth="311.0" text="Super Tower Rise Invasion" textFill="WHITE">
                <font>
                   <Font name="Ubuntu Light" size="20.0" />
                </font>
             </Label>
+            <Button fx:id="sauvegarder" layoutX="564.0" layoutY="12.0" mnemonicParsing="false" onAction="#sauvegarder" text="Sauvegarder" />
+            <Button fx:id="charger" layoutX="686.0" layoutY="12.0" mnemonicParsing="false" onAction="#charger" text="Charger" />
          </children>
       </Pane>
       <Pane layoutX="29.0" layoutY="77.0" prefHeight="238.0" prefWidth="280.0" style="-fx-border-color: black;">
@@ -202,7 +204,12 @@
       <Button fx:id="boutonFuir" disable="true" layoutX="230.0" layoutY="570.0" mnemonicParsing="false" onAction="#clickFuir" prefHeight="36.0" prefWidth="80.0" style="-fx-background-color: #0174DF;" text="Fuir" textFill="WHITE" />
       <Pane layoutX="338.0" layoutY="361.0" prefHeight="27.0" prefWidth="466.0">
          <children>
-            <Label fx:id="nomMonstre" layoutY="6.0" prefHeight="16.0" prefWidth="466.0" text="Label" />
+            <Label fx:id="nomMonstre" layoutX="46.0" layoutY="6.0" prefHeight="16.0" prefWidth="439.0" text="Label" />
+            <ImageView fitHeight="26.0" fitWidth="33.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icon/info.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
    </children>
