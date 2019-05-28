@@ -30,5 +30,10 @@ public class ControleurPageConnexion extends ControleurFX {
 			this.mainApp.showPagePopUp("erreurSaisieNomJoueur");
 		}
 	}
+	
+	@FXML
+	public void clicBoutonAbout() {
+		this.mainApp.showPage("about");
+	}
 
 }

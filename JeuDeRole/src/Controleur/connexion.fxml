@@ -46,7 +46,7 @@
             </HBox>
          </children>
       </Pane>
-      <Button fx:id="about" layoutX="29.0" layoutY="561.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="89.0" style="-fx-background-color: #0174DF;" text="About" textFill="WHITE" />
+      <Button fx:id="about" layoutX="29.0" layoutY="561.0" mnemonicParsing="false" onAction="#clicBoutonAbout" prefHeight="36.0" prefWidth="89.0" style="-fx-background-color: #0174DF;" text="About" textFill="WHITE" />
       <Button fx:id="commencer" cache="true" layoutX="687.0" layoutY="560.0" mnemonicParsing="false" onAction="#clicBoutonCommencer" prefHeight="36.0" prefWidth="110.0" style="-fx-background-color: #0174DF;" text="Commencer" textFill="WHITE" />
       <Text layoutX="58.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pour commencer, veuillez entrer le nom de votre joueur" textAlignment="CENTER" wrappingWidth="708.0">
          <font>
