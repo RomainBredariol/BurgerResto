@@ -12,6 +12,7 @@ public class Salle implements Serializable {
 	private String texte;
 	private int indexMap;
 	private boolean estDejaVisitee;
+	private boolean estResolue;
 	
 	// une salle est composé d'une description et d'un monstre si ce n'est pas une boutique 
 	//Par defaut une salle n'est pas visible.
@@ -20,6 +21,7 @@ public class Salle implements Serializable {
 		this.indexMap = indexMap;
 		this.texte = texte;
 		this.estDejaVisitee = false;
+		this.estResolue = false;
 	}
 	
 	public void visiterSalle() {
@@ -40,5 +42,13 @@ public class Salle implements Serializable {
 	
 	public String getTexte() {
 		return this.texte;
+	}
+	
+	public boolean estResolue() {
+		return this.estResolue;
+	}
+	
+	public void resoudreSalle() {
+		this.estResolue = true;
 	}
 }
