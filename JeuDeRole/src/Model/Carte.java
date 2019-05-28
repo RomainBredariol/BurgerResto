@@ -82,7 +82,7 @@ public class Carte implements Serializable{
 		lvl1[23] = new Arene(new Monstre("un TD d'HTML", 20, 100, null, 6), 24, "<p> les balises c'est la vie </p>");
 		lvl1[24] = new Salle(enumDescription.MUR, 25, "");
 		lvl1[25] = new Salle(enumDescription.MUR, 26, "");
-		lvl1[26] = new Arene(new Monstre("Un projet Java", 50, 200, new Arme("Inner class", 200, 7), 10), 27, "réussir ce projet vous demandera de sacrifier plusieurs nuits...");
+		lvl1[26] = new Arene(new Monstre("Un projet Java", 50, 200, new Arme("Inner class", 200, 15), 10), 27, "réussir ce projet vous demandera de sacrifier plusieurs nuits...");
 		
 		// 4eme colonne de salles
 		lvl1[27] = new Arene(new Monstre("un TD de Linux", 8, 40, null, 3), 28, "there is no place like 127.0.0.1");
@@ -96,7 +96,7 @@ public class Carte implements Serializable{
 		lvl1[35] = new Arene(new Monstre("un partiel de Graphe", 50, 200, null, 8), 36, "La puit de cette année semble être par là, avec un peu de chance...");
 		
 		// 5eme colonne de salles
-		lvl1[36] = new Arene(new Monstre("un TD de télcom", 20, 100, null, 6), 37, "Un bilan de liaison sur vos résultats est pour l'instant positif");
+		lvl1[36] = new Arene(new Monstre("un TD de télcom", 20, 100, new Arme("l'abaque de Smith", 400, 10), 6), 37, "Un bilan de liaison sur vos résultats est pour l'instant positif");
 		lvl1[37] = new Salle(enumDescription.MUR, 38, "");
 		lvl1[38] = new Salle(enumDescription.SALLE, 39, "Une petite période en entreprise, un calme bien mérité !");
 		lvl1[39] = new Salle(enumDescription.MUR, 40, "");

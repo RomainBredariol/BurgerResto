@@ -6,6 +6,7 @@ import java.util.Map;
 
 import Controleur.ControleurEntrerBoutique;
 import Controleur.ControleurFX;
+import Controleur.ControleurGameOver;
 import Controleur.ControleurPageBoutique;
 import Controleur.ControleurPageConnexion;
 import Controleur.ControleurPageErreurSaisieNomJoueur;
@@ -34,6 +35,7 @@ public class MainApp extends Application {
 			this.page.put("erreurSaisieNomJoueur", "/Controleur/page_erreurSaisieNomJoueur.fxml");
 			this.page.put("entrerBoutique", "/Controleur/page_entrerBoutique.fxml");
 			this.page.put("boutique", "/Controleur/page_boutique.fxml");
+			this.page.put("gameover", "Controleur/gameover.fxml");
 			
 			showPage("connexion");	
 
@@ -61,6 +63,8 @@ public class MainApp extends Application {
 				case "boutique":
 					controleur = new ControleurPageBoutique();
 					break;
+				case "gameover":
+					controleur = new ControleurGameOver();
 				default:
 					System.out.println("** ERREUR ** : Mauvaise Page");
 					break;	

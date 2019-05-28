@@ -40,7 +40,7 @@ public class ControleurPageBoutique extends ControleurFX {
 		boutique = new HashMap<String, Objet>();
 		boutique.put("Coca", new Objet("Coca", 50));
 		boutique.put("Classeur", new Armure("Classeur", 100, 10));
-		boutique.put("Cable RJ45", new Arme("Cable RJ45", 600, 10));
+		boutique.put("Cable RJ45", new Arme("Cable RJ45", 600, 15));
 		boutique.put("Switch Cisco", new Armure("Switch Cisco", 300, 20));
 
 	}
@@ -83,7 +83,6 @@ public class ControleurPageBoutique extends ControleurFX {
 				}
 				break;
 			case OBJET:
-				System.out.println("test");
 				nom += " (soigne "+(obj.getValeur()/2)+" PV)";
 				break;
 			default:
@@ -166,7 +165,6 @@ public class ControleurPageBoutique extends ControleurFX {
 				nom += " (armure "+armure.getDefenseMax()+" défense)";
 				break;
 			case OBJET:
-				System.out.println("test");
 				nom += " (soigne "+(obj.getValeur()/2)+" PV)";
 				break;
 			default:
@@ -223,6 +221,7 @@ public class ControleurPageBoutique extends ControleurFX {
 	
 	// vendre un objet
 	private void clicVendreObjet(Objet obj) {
+		System.out.println("vendre");
 		this.mainApp.joueurEnJeu.supprimerObjetSac(obj);
 		this.mainApp.joueurEnJeu.addOR(obj.getValeur());
 		this.setAffichageSac();

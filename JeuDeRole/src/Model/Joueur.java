@@ -29,11 +29,11 @@ public class Joueur extends Entitee implements Serializable {
 		
 		// armure, armure et carte
 		this.carteEnCours = lvl1;
-		this.arme = new Arme("une feuille", 0, 5);
-		this.sac.put("feuille", this.arme);
+		this.arme = new Arme("feuille", 10, 5);
+		this.sac.put(this.arme.getNom(), this.arme);
 		this.arme.equiper();
-		this.armure = new Armure("un manteau", 0, 5);
-		this.sac.put("manteau", this.armure);
+		this.armure = new Armure("manteau", 10, 5);
+		this.sac.put(this.armure.getNom(), this.armure);
 		this.armure.equiper();
 		
 	}

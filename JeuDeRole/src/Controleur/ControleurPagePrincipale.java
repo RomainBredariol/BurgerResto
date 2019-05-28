@@ -88,12 +88,12 @@ public class ControleurPagePrincipale extends ControleurFX {
 
 			// nom de l'objet
 			Label nomObjet = new Label(obj.getNom());
-			nomObjet.setPrefSize(86, 20);
+			nomObjet.setMinSize(140, 20);
 			nomObjet.setAlignment(Pos.CENTER);
 
 			// sa valeur
 			Label valeurObjet = new Label(String.valueOf(obj.getValeur()));
-			valeurObjet.setPrefSize(86, 20);
+			valeurObjet.setMinSize(50, 20);
 			valeurObjet.setAlignment(Pos.CENTER);
 
 			// bouton utiliser
@@ -234,17 +234,12 @@ public class ControleurPagePrincipale extends ControleurFX {
 							}
 							break;
 						case MUR:
-							System.out.println("mur");
 							image = new ImageView("/Controleur/icon/mur.png");
 						default:
 							break;
 						}
 					}			
 				}
-//				System.out.println("ligne joueur : "+ligneJoueur);
-//				System.out.println("ligne : "+ligne);
-//				System.out.println("Colonene joueur  : "+colonneJoueur);
-//				System.out.println("colonne : "+colonne);
 				image.setFitHeight(28);
 				image.setFitWidth(28);
 				pane.getChildren().add(0,image);
@@ -493,7 +488,13 @@ public class ControleurPagePrincipale extends ControleurFX {
 			boutonBas.setDisable(false);
 			this.salleEnCours.resoudreSalle();
 			this.nomMonstre.setText("Vous n'étes pas en combat");
-			
+			if (this.combatEnCours.getMonstre().getTresor() != null) {
+				this.mainApp.joueurEnJeu.ajouterObjetSac(this.combatEnCours.getMonstre().getTresor());
+				setAffichageSac();
+			}
+			if (!this.mainApp.joueurEnJeu.estVivant()) {
+				this.mainApp.showPage("gameover");
+			}
 		}
 		refreshCarte();
 		setAffichageJoueur();
