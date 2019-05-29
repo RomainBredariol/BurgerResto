@@ -13,7 +13,7 @@
    <children>
       <Pane prefHeight="49.0" prefWidth="822.0" style="-fx-background-color: #0174DF;">
          <children>
-            <Label fx:id="menu" layoutX="123.0" layoutY="12.0" onMouseClicked="#retourPageConnexion" prefHeight="26.0" prefWidth="274.0" text="Super Tower Rise Invasion" textFill="WHITE">
+            <Label fx:id="menu" layoutX="20.0" layoutY="12.0" onMouseClicked="#retourPageConnexion" prefHeight="26.0" prefWidth="274.0" text="Super Tower Rise Invasion" textFill="WHITE">
                <font>
                   <Font name="Ubuntu Light" size="20.0" />
                </font>
